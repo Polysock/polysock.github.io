@@ -689,3 +689,28 @@ audio::-moz-range-thumb {
         grid-template-columns: 1fr;
     }
 }
+/* Погода */
+
+.weather-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.weather-controls .btn {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 480px) {
+    .weather-controls {
+        flex-direction: column;
+    }
+    
+    .weather-controls .btn {
+        min-width: auto;
+    }
+}
