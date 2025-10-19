@@ -100,39 +100,82 @@
             </div>
             
             <!-- Вкладка музыки -->
-            <div class="works-grid" id="music-tab" style="display: none;">
-                <div class="work-card">
-                    <div class="music-image"></div>
-                    <div class="work-content">
-                        <h3>"Своя собственная дочь"</h3>
-                        <p>Кавер на песню с собственной аранжировкой в стиле прогрессивный рок</p>
-                        <div class="music-type">
-                            <span>Progressive Rock</span>
-                            <span>Кавер</span>
-                            <span>Гитара</span>
-                        </div>
-                        <div class="audio-player">
-                            <audio controls style="width: 100%; margin-top: 15px;">
-                                <source src="your-song.mp3" type="audio/mpeg">
-                                Ваш браузер не поддерживает аудио элемент.
-                            </audio>
-                        </div>
-                    </div>
+<div class="works-grid" id="music-tab" style="display: none;">
+    <div class="work-card">
+        <div class="music-image"></div>
+        <div class="work-content">
+            <h3>Последняя демка</h3>
+            <p>Моя последняя инструментальная демка</p>
+            <div class="music-type">
+                <span>Progressive Rock</span>
+                <span>Инструментал</span>
+                <span>Демо</span>
+            </div>
+            <div class="audio-player">
+                <audio controls style="width: 100%; margin-top: 15px;">
+                    <source src="audio/last-demo.mp3" type="audio/mpeg">
+                    <source src="audio/last-demo.ogg" type="audio/ogg">
+                    Ваш браузер не поддерживает аудио элемент.
+                </audio>
+            </div>
+        </div>
+    </div>
+    
+    <div class="work-card">
+        <div class="music-image" style="background: linear-gradient(45deg, #4a1e6d, #8a2be2)"></div>
+        <div class="work-content">
+            <h3>Sokoninaru - Фавориты</h3>
+            <p>Плейлист с моими любимыми треками Sokoninaru для вдохновения и работы</p>
+            <div class="music-type">
+                <span>Progressive</span>
+                <span>Math Rock</span>
+                <span>Японский рок</span>
+            </div>
+            <div class="playlist">
+                <div class="playlist-item">
+                    <span class="track-number">1</span>
+                    <span class="track-title">Sokoninaru - Track 1</span>
+                    <button class="play-btn" onclick="playYoutubeVideo('video_id_1')">▶</button>
                 </div>
-                
-                <div class="work-card">
-                    <div class="music-image"></div>
-                    <div class="work-content">
-                        <h3>sokoninaru влияние</h3>
-                        <p>Творчество под влиянием любимой группы sokoninaru</p>
-                        <div class="music-type">
-                            <span>Progressive</span>
-                            <span>Math Rock</span>
-                            <span>Эксперимент</span>
-                        </div>
-                    </div>
+                <div class="playlist-item">
+                    <span class="track-number">2</span>
+                    <span class="track-title">Sokoninaru - Track 2</span>
+                    <button class="play-btn" onclick="playYoutubeVideo('video_id_2')">▶</button>
+                </div>
+                <div class="playlist-item">
+                    <span class="track-number">3</span>
+                    <span class="track-title">Sokoninaru - Track 3</span>
+                    <button class="play-btn" onclick="playYoutubeVideo('video_id_3')">▶</button>
+                </div>
+                <div class="playlist-item">
+                    <span class="track-number">4</span>
+                    <span class="track-title">Sokoninaru - Track 4</span>
+                    <button class="play-btn" onclick="playYoutubeVideo('video_id_4')">▶</button>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="work-card">
+        <div class="music-image" style="background: linear-gradient(45deg, var(--cyan), var(--aquamarine))"></div>
+        <div class="work-content">
+            <h3>Рабочий плейлист</h3>
+            <p>Подборка треков для программирования и творчества</p>
+            <div class="music-type">
+                <span>Прогрессивный рок</span>
+                <span>Пост-рок</span>
+                <span>Инструментал</span>
+            </div>
+            <div class="audio-player">
+                <div class="spotify-embed">
+                    <!-- Здесь можно встроить Spotify плейлист -->
+                    <p>🎵 Плейлист для кодинга</p>
+                    <p><small>Добавь ссылку на свой Spotify/YouTube плейлист</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
             
             <!-- Вкладка города -->
             <div class="works-grid" id="city-tab" style="display: none;">
