@@ -7,12 +7,6 @@ const audioManager = {
         if (this.currentPlaying && this.currentPlaying !== audioElement) {
             this.currentPlaying.pause();
             this.currentPlaying.currentTime = 0;
-            
-            // Сбрасываем кнопку предыдущего плеера
-            const prevButton = this.currentPlaying.parentNode.querySelector('button');
-            if (prevButton) {
-                prevButton.innerHTML = '▶';
-            }
         }
         
         this.currentPlaying = audioElement;
@@ -78,75 +72,29 @@ function showTab(tabName) {
     setTimeout(initScrollAnimations, 100);
 }
 
-// Инициализация кастомных аудио-контролов
-function initCustomAudioControls() {
-    const audioElements = document.querySelectorAll('audio');
-    
-    audioElements.forEach(audio => {
-        // Скрываем стандартный аудио-элемент
-        audio.style.display = 'none';
+// Инициализация аудио плееров с менеджером
+function initAudioPlayers() {
+    const audioPlayers = document.querySelectorAll('audio');
+    audioPlayers.forEach(audio => {
+        audio.controls = true;
+        audio.preload = 'metadata';
         
-        // Создаем кастомную обертку
-        const wrapper = document.createElement('div');
-        wrapper.className = 'custom-audio-player';
-        
-        // Создаем кнопку воспроизведения
-        const playButton = document.createElement('button');
-        playButton.innerHTML = '▶';
-        
-        // Создаем индикатор прогресса
-        const progress = document.createElement('div');
-        progress.className = 'progress';
-        
-        const progressBar = document.createElement('div');
-        progressBar.className = 'progress-bar';
-        
-        progress.appendChild(progressBar);
-        
-        // Обработчики событий
-        playButton.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                audioManager.playAudio(audio);
-            } else {
-                audio.pause();
-            }
+        // Добавляем обработчик для управления воспроизведением
+        audio.addEventListener('play', function() {
+            audioManager.playAudio(this);
         });
         
-        audio.addEventListener('play', () => {
-            playButton.innerHTML = '⏸';
-        });
-        
-        audio.addEventListener('pause', () => {
-            playButton.innerHTML = '▶';
-        });
-        
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = percent + '%';
-            }
-        });
-        
-        audio.addEventListener('ended', () => {
-            playButton.innerHTML = '▶';
-            progressBar.style.width = '0%';
+        // Добавляем обработчик окончания трека
+        audio.addEventListener('ended', function() {
             audioManager.currentPlaying = null;
         });
-        
-        // Вставляем элементы
-        wrapper.appendChild(playButton);
-        wrapper.appendChild(progress);
-        
-        // Вставляем кастомный плеер после аудио-элемента
-        audio.parentNode.insertBefore(wrapper, audio.nextSibling);
     });
 }
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
-    initCustomAudioControls();
+    initAudioPlayers();
     
     // Добавляем анимацию для карточек портфолио
     document.querySelectorAll('.work-card').forEach((card, index) => {
