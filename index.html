@@ -105,7 +105,7 @@
         <div class="music-image"></div>
         <div class="work-content">
             <h3>Последняя демка</h3>
-            <p>Моя последняя инструментальная демка</p>
+            <p>Моя последняя инструментальная демка в стиле прогрессивный рок</p>
             <div class="music-type">
                 <span>Progressive Rock</span>
                 <span>Инструментал</span>
@@ -114,7 +114,6 @@
             <div class="audio-player">
                 <audio controls style="width: 100%; margin-top: 15px;">
                     <source src="audio/last-demo.mp3" type="audio/mpeg">
-                    <source src="audio/last-demo.ogg" type="audio/ogg">
                     Ваш браузер не поддерживает аудио элемент.
                 </audio>
             </div>
@@ -124,33 +123,34 @@
     <div class="work-card">
         <div class="music-image" style="background: linear-gradient(45deg, #4a1e6d, #8a2be2)"></div>
         <div class="work-content">
-            <h3>Sokoninaru - Фавориты</h3>
-            <p>Плейлист с моими любимыми треками Sokoninaru для вдохновения и работы</p>
+            <h3>Мои демки</h3>
+            <p>Коллекция моих инструментальных демо-записей</p>
             <div class="music-type">
                 <span>Progressive</span>
-                <span>Math Rock</span>
-                <span>Японский рок</span>
+                <span>Инструментал</span>
+                <span>Эксперимент</span>
             </div>
             <div class="playlist">
                 <div class="playlist-item">
                     <span class="track-number">1</span>
-                    <span class="track-title">Sokoninaru - Track 1</span>
-                    <button class="play-btn" onclick="playYoutubeVideo('video_id_1')">▶</button>
+                    <span class="track-title">Демо #1</span>
+                    <audio controls class="track-player">
+                        <source src="audio/demo1.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
                 <div class="playlist-item">
                     <span class="track-number">2</span>
-                    <span class="track-title">Sokoninaru - Track 2</span>
-                    <button class="play-btn" onclick="playYoutubeVideo('video_id_2')">▶</button>
+                    <span class="track-title">Демо #2</span>
+                    <audio controls class="track-player">
+                        <source src="audio/demo2.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
                 <div class="playlist-item">
                     <span class="track-number">3</span>
-                    <span class="track-title">Sokoninaru - Track 3</span>
-                    <button class="play-btn" onclick="playYoutubeVideo('video_id_3')">▶</button>
-                </div>
-                <div class="playlist-item">
-                    <span class="track-number">4</span>
-                    <span class="track-title">Sokoninaru - Track 4</span>
-                    <button class="play-btn" onclick="playYoutubeVideo('video_id_4')">▶</button>
+                    <span class="track-title">Демо #3</span>
+                    <audio controls class="track-player">
+                        <source src="audio/demo3.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
             </div>
         </div>
@@ -159,18 +159,34 @@
     <div class="work-card">
         <div class="music-image" style="background: linear-gradient(45deg, var(--cyan), var(--aquamarine))"></div>
         <div class="work-content">
-            <h3>Рабочий плейлист</h3>
-            <p>Подборка треков для программирования и творчества</p>
+            <h3>Sokoninaru - Фавориты</h3>
+            <p>Мои любимые треки Sokoninaru в формате MP3</p>
             <div class="music-type">
-                <span>Прогрессивный рок</span>
-                <span>Пост-рок</span>
-                <span>Инструментал</span>
+                <span>Progressive</span>
+                <span>Math Rock</span>
+                <span>Японский рок</span>
             </div>
-            <div class="audio-player">
-                <div class="spotify-embed">
-                    <!-- Здесь можно встроить Spotify плейлист -->
-                    <p>🎵 Плейлист для кодинга</p>
-                    <p><small>Добавь ссылку на свой Spotify/YouTube плейлист</small></p>
+            <div class="playlist">
+                <div class="playlist-item">
+                    <span class="track-number">1</span>
+                    <span class="track-title">Sokoninaru - 眩暈</span>
+                    <audio controls class="track-player">
+                        <source src="audio/sokoninaru1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="playlist-item">
+                    <span class="track-number">2</span>
+                    <span class="track-title">Sokoninaru - アウフヘーベン</span>
+                    <audio controls class="track-player">
+                        <source src="audio/sokoninaru2.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="playlist-item">
+                    <span class="track-number">3</span>
+                    <span class="track-title">Sokoninaru - カオスが極まる</span>
+                    <audio controls class="track-player">
+                        <source src="audio/sokoninaru3.mp3" type="audio/mpeg">
+                    </audio>
                 </div>
             </div>
         </div>
