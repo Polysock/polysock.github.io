@@ -330,3 +330,93 @@ document.addEventListener('click', function() {
         audioContext.resume();
     }
 }, { once: true });
+
+// Функция для создания кастомных аудио-контролов
+function initCustomAudioControls() {
+    const audioElements = document.querySelectorAll('audio');
+    
+    audioElements.forEach(audio => {
+        // Создаем кастомную обертку
+        const wrapper = document.createElement('div');
+        wrapper.className = 'custom-audio-player';
+        wrapper.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--dark-card);
+            border-radius: 8px;
+            margin-top: 10px;
+        `;
+        
+        // Создаем кнопку воспроизведения
+        const playButton = document.createElement('button');
+        playButton.innerHTML = '▶';
+        playButton.style.cssText = `
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--aquamarine);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        `;
+        
+        // Создаем индикатор прогресса
+        const progress = document.createElement('div');
+        progress.style.cssText = `
+            flex: 1;
+            height: 4px;
+            background: rgba(42, 157, 143, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        `;
+        
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            height: 100%;
+            background: var(--aquamarine);
+            width: 0%;
+            transition: width 0.1s linear;
+        `;
+        
+        progress.appendChild(progressBar);
+        
+        // Обработчики событий
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playButton.innerHTML = '⏸';
+            } else {
+                audio.pause();
+                playButton.innerHTML = '▶';
+            }
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percent + '%';
+        });
+        
+        audio.addEventListener('ended', () => {
+            playButton.innerHTML = '▶';
+            progressBar.style.width = '0%';
+        });
+        
+        // Вставляем элементы
+        wrapper.appendChild(playButton);
+        wrapper.appendChild(progress);
+        
+        // Заменяем стандартный плеер
+        audio.style.display = 'none';
+        audio.parentNode.insertBefore(wrapper, audio);
+        audio.parentNode.removeChild(audio);
+    });
+}
+
+// Раскомментируй следующую строку, если хочешь использовать кастомные плееры
+document.addEventListener('DOMContentLoaded', initCustomAudioControls);
