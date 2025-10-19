@@ -61,6 +61,11 @@ function showTab(tabName) {
     const targetTab = document.getElementById(tabName + '-tab');
     if (targetTab) {
         targetTab.style.display = 'grid';
+        
+        // Если это вкладка города, инициализируем её
+        if (tabName === 'city') {
+            setTimeout(initCityTab, 100);
+        }
     }
     
     // Активируем кнопку
@@ -131,18 +136,16 @@ function updateTime() {
     if (dayElement) dayElement.textContent = dayOfWeek;
 }
 
-// Функция для получения погоды с OpenWeatherMap API
+// Функция для получения погоды с Open-Meteo API (с влажностью)
 async function updateWeather() {
     const btn = document.querySelector('.weather-btn');
-    const apiKey = 'your_api_key_here'; // Замените на ваш API ключ
     
-    // Для демо используем бесплатный API без ключа (ограничения)
     try {
         btn.classList.add('updating');
-        btn.textContent = '🔄 Загрузка...';
+        btn.innerHTML = '<span class="btn-icon">🔄</span> Загрузка...';
         
-        // Используем бесплатный API погоды (можно заменить на OpenWeatherMap с ключом)
-        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=54.71&longitude=20.51&current_weather=true&timezone=Europe%2FMoscow`);
+        // Используем расширенный запрос для получения влажности и других данных
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=54.71&longitude=20.51&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Europe%2FMoscow`);
         
         if (!response.ok) {
             throw new Error('Ошибка загрузки погоды');
@@ -150,8 +153,8 @@ async function updateWeather() {
         
         const data = await response.json();
         
-        if (data.current_weather) {
-            updateWeatherUI(data.current_weather);
+        if (data.current) {
+            updateWeatherUI(data.current);
             showNotification('Погода обновлена!');
         }
         
@@ -162,33 +165,31 @@ async function updateWeather() {
         showNotification('Используются демо-данные');
     } finally {
         btn.classList.remove('updating');
-        btn.textContent = '🔄 Обновить погоду';
+        btn.innerHTML = '<span class="btn-icon">🔄</span> Обновить погоду';
     }
 }
 
-// Функция для обновления интерфейса погоды
+// Функция для обновления интерфейса погоды с реальными данными
 function updateWeatherUI(weatherData) {
     const temp = document.getElementById('temperature');
     const condition = document.getElementById('weather-condition');
     const feels = document.getElementById('feels-like');
     const humidity = document.getElementById('humidity');
     const wind = document.getElementById('wind-speed');
-    const icon = document.getElementById('weather-icon');
     
-    const temperature = Math.round(weatherData.temperature);
-    const windSpeed = Math.round(weatherData.windspeed);
+    const temperature = Math.round(weatherData.temperature_2m);
+    const feelsLike = Math.round(weatherData.apparent_temperature);
+    const windSpeed = Math.round(weatherData.wind_speed_10m);
+    const humidityValue = weatherData.relative_humidity_2m;
     
     // Определяем описание погоды по коду (WMO codes)
-    const weatherInfo = getWeatherDescription(weatherData.weathercode);
+    const weatherInfo = getWeatherDescription(weatherData.weather_code);
     
     if (temp) temp.textContent = `${temperature}°C`;
     if (condition) condition.textContent = weatherInfo.description;
-    if (feels) feels.textContent = `Ощущается как ${temperature}°C`;
+    if (feels) feels.textContent = `${feelsLike}°C`;
     if (wind) wind.textContent = `${windSpeed} м/с`;
-    if (icon) icon.textContent = weatherInfo.icon;
-    
-    // Влажность не в этом API, используем примерное значение
-    if (humidity) humidity.textContent = `${Math.floor(Math.random() * 30) + 60}%`;
+    if (humidity) humidity.textContent = `${humidityValue}%`;
 }
 
 // Функция для определения описания погоды по коду
@@ -228,11 +229,11 @@ function getLocationWeather() {
             const lon = position.coords.longitude;
             
             try {
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`);
                 const data = await response.json();
                 
-                if (data.current_weather) {
-                    updateWeatherUI(data.current_weather);
+                if (data.current) {
+                    updateWeatherUI(data.current);
                     showNotification('Погода для вашей локации загружена!');
                 }
             } catch (error) {
@@ -267,14 +268,12 @@ function updateWeatherWithDemoData() {
     const feels = document.getElementById('feels-like');
     const humidity = document.getElementById('humidity');
     const wind = document.getElementById('wind-speed');
-    const icon = document.getElementById('weather-icon');
     
     if (temp) temp.textContent = `${randomTemp}°C`;
     if (condition) condition.textContent = randomCondition.text;
-    if (feels) feels.textContent = `Ощущается как ${randomTemp}°C`;
+    if (feels) feels.textContent = `${randomTemp}°C`;
     if (humidity) humidity.textContent = `${randomHumidity}%`;
     if (wind) wind.textContent = `${randomWind} м/с`;
-    if (icon) icon.textContent = randomCondition.icon;
 }
 
 // Функция для уведомлений
@@ -319,35 +318,6 @@ function initCityTab() {
     
     // Загружаем погоду при открытии вкладки
     setTimeout(updateWeather, 500);
-}
-
-// Обновляем функцию showTab для инициализации вкладки города
-function showTab(tabName) {
-    // Скрываем все табы
-    document.getElementById('code-tab').style.display = 'none';
-    document.getElementById('music-tab').style.display = 'none';
-    document.getElementById('city-tab').style.display = 'none';
-    
-    // Убираем активный класс у всех кнопок
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Показываем нужный таб и активируем кнопку
-    const targetTab = document.getElementById(tabName + '-tab');
-    if (targetTab) {
-        targetTab.style.display = 'grid';
-        
-        // Если это вкладка города, инициализируем её
-        if (tabName === 'city') {
-            setTimeout(initCityTab, 100);
-        }
-    }
-    
-    // Активируем кнопку
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
 }
 
 // Инициализация при загрузке
