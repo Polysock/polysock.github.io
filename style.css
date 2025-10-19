@@ -980,6 +980,340 @@ audio::-moz-range-thumb {
         font-size: 1.8rem;
     }
 }
+/* Секция "О себе" */
+.about {
+    padding: 80px 20px;
+    background: var(--darker-bg);
+    position: relative;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--dark-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Основной блок о себе */
+.about-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.about-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--dark-text);
+    background: linear-gradient(45deg, var(--aquamarine), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.about-text p {
+    color: var(--dark-text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Статистика */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: rgba(42, 157, 143, 0.05);
+    border: 1px solid rgba(42, 157, 143, 0.2);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    border-color: rgba(42, 157, 143, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(42, 157, 143, 0.15);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--aquamarine);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    color: var(--dark-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Изображение */
+.about-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, 
+        rgba(42, 157, 143, 0.1), 
+        rgba(72, 202, 228, 0.05), 
+        rgba(109, 74, 255, 0.08));
+    border: 2px dashed rgba(42, 157, 143, 0.3);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-text-secondary);
+    transition: all 0.3s ease;
+}
+
+.image-placeholder:hover {
+    border-color: rgba(42, 157, 143, 0.6);
+    transform: scale(1.05);
+}
+
+.image-placeholder span {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.image-placeholder p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Детали */
+.about-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.detail-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(45deg, var(--aquamarine), var(--cyan));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(42, 157, 143, 0.3);
+}
+
+.detail-card:hover::before {
+    transform: scaleX(1);
+}
+
+.detail-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.detail-card h4 {
+    color: var(--dark-text);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.detail-list {
+    list-style: none;
+    padding: 0;
+}
+
+.detail-list li {
+    color: var(--dark-text-secondary);
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.detail-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--aquamarine);
+    font-weight: bold;
+}
+
+/* Цитата */
+.about-quote {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, 
+        rgba(42, 157, 143, 0.05), 
+        rgba(109, 74, 255, 0.05));
+    border: 1px solid rgba(42, 157, 143, 0.2);
+    border-radius: 16px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.about-quote::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 4rem;
+    color: rgba(42, 157, 143, 0.2);
+    font-family: serif;
+}
+
+blockquote {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--dark-text);
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+.quote-author {
+    color: var(--aquamarine);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Анимации */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-main,
+.about-details,
+.about-quote {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.about-details .detail-card:nth-child(1) { animation-delay: 0.1s; }
+.about-details .detail-card:nth-child(2) { animation-delay: 0.2s; }
+.about-details .detail-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* Адаптивность */
+@media (max-width: 968px) {
+    .about-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+        padding: 60px 20px;
+    }
+    
+    .about-details {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .detail-card {
+        padding: 25px 20px;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .about-quote {
+        padding: 30px 20px;
+    }
+    
+    blockquote {
+        font-size: 1.1rem;
+    }
+    
+    .image-placeholder {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .image-placeholder span {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-text h3 {
+        font-size: 1.5rem;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+    
+    .about-quote {
+        padding: 25px 15px;
+    }
+    
+    blockquote {
+        font-size: 1rem;
+    }
+}
 
 /* Анимации */
 @keyframes cardAppear {
