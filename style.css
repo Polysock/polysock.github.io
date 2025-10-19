@@ -689,3 +689,87 @@ audio::-moz-range-thumb {
         grid-template-columns: 1fr;
     }
 }
+/* Улучшенные стили для мобильных аудио-плееров */
+@media (max-width: 768px) {
+    .audio-player,
+    .track-player,
+    audio {
+        height: 65px !important;
+        min-height: 65px !important;
+    }
+    
+    /* Увеличиваем touch targets для мобильных */
+    audio::-webkit-media-controls-panel {
+        padding: 12px !important;
+        height: 65px !important;
+    }
+    
+    audio::-webkit-media-controls-play-button {
+        width: 45px !important;
+        height: 45px !important;
+        margin-right: 15px !important;
+    }
+    
+    audio::-webkit-media-controls-timeline {
+        height: 8px !important;
+        margin: 0 10px !important;
+    }
+    
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+        font-size: 14px !important;
+        margin: 0 8px !important;
+    }
+    
+    /* Улучшаем плейлист для мобильных */
+    .playlist-item {
+        padding: 20px 15px;
+        gap: 15px;
+    }
+    
+    .track-title {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}
+
+/* Дополнительные улучшения для очень маленьких экранов */
+@media (max-width: 480px) {
+    .audio-player,
+    .track-player,
+    audio {
+        height: 70px !important;
+        min-height: 70px !important;
+    }
+    
+    audio::-webkit-media-controls-panel {
+        padding: 15px !important;
+        height: 70px !important;
+    }
+    
+    /* Делаем timeline полнее на очень маленьких экранах */
+    audio::-webkit-media-controls-timeline {
+        flex-grow: 1 !important;
+        margin: 0 5px !important;
+    }
+    
+    .playlist-item {
+        padding: 15px 12px;
+    }
+}
+
+/* Улучшаем структуру плейлиста для мобильных */
+.playlist-item {
+    position: relative;
+}
+
+.track-player {
+    width: 100% !important;
+    margin-top: 8px;
+}
+
+/* Убедимся, что все аудио элементы имеют достаточный размер */
+audio {
+    min-width: 100% !important;
+    min-height: 50px !important;
+}
