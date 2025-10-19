@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разработчик & Гитарист</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="code-side">
+            <div class="avatar"></div>
+            <h1>Frontend Developer</h1>
+            <p>Создаю современные и быстрые веб-приложения</p>
+            <div class="skills">
+                <span>React</span>
+                <span>TypeScript</span>
+                <span>Node.js</span>
+            </div>
+            <a href="#portfolio" class="btn">Мои проекты</a>
+        </div>
+        
+        <div class="music-side">
+            <div class="avatar"></div>
+            <h1>Гитарист</h1>
+            <p>Играю в разных стилях - от классики до рока</p>
+            <div class="skills">
+                <span>Fingerstyle</span>
+                <span>Rock</span>
+                <span>Импровизация</span>
+            </div>
+            <a href="#music" class="btn">Мои записи</a>
+        </div>
+    </section>
+
+    <!-- Портфолио с вкладками -->
+    <section class="portfolio" id="portfolio">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('code')">💻 Проекты</div>
+            <div class="tab" onclick="showTab('music')">🎸 Музыка</div>
+        </div>
+        
+        <div class="works-grid" id="code-tab">
+            <!-- Добавь свои проекты здесь -->
+            <div class="work-card">
+                <div class="work-image"></div>
+                <div class="work-content">
+                    <h3>Мой первый сайт</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="works-grid" id="music-tab" style="display: none;">
+            <!-- Добавь свои музыкальные работы -->
+            <div class="work-card">
+                <div class="music-image"></div>
+                <div class="work-content">
+                    <h3>Моя первая запись</h3>
+                    <p>Акустическая гитара</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
