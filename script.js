@@ -2,6 +2,29 @@
 let audioContext;
 let guitarSounds = {};
 
+// Менеджер аудио для управления воспроизведением
+const audioManager = {
+    currentPlaying: null,
+    
+    playAudio(audioElement) {
+        // Если уже что-то играет, останавливаем
+        if (this.currentPlaying && this.currentPlaying !== audioElement) {
+            this.currentPlaying.pause();
+            this.currentPlaying.currentTime = 0;
+        }
+        
+        this.currentPlaying = audioElement;
+    },
+    
+    stopAll() {
+        if (this.currentPlaying) {
+            this.currentPlaying.pause();
+            this.currentPlaying.currentTime = 0;
+        }
+        this.currentPlaying = null;
+    }
+};
+
 // Инициализация звуков гитары
 function initGuitarSounds() {
     try {
@@ -46,20 +69,6 @@ function playGuitarSound(frequency) {
         oscillator.stop(audioContext.currentTime + 0.5);
     } catch (e) {
         console.log('Ошибка воспроизведения звука:', e);
-    }
-}
-
-// Функции для YouTube плейлиста Sokoninaru
-function playSokoninaruTrack(trackNumber) {
-    const youtubeLinks = {
-        1: 'https://www.youtube.com/watch?v=0B8_dgTXYlc',
-        2: 'https://www.youtube.com/watch?v=SQFGm3KDIMk', 
-        3: 'https://www.youtube.com/watch?v=MFIVm9ve-Bs'
-    };
-    
-    const url = youtubeLinks[trackNumber];
-    if (url) {
-        window.open(url, '_blank');
     }
 }
 
@@ -244,20 +253,7 @@ function initGuitarEffects() {
     }
 }
 
-// Параллакс эффект для герой-секции
-function initParallax() {
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('.code-side, .music-side');
-        
-        parallaxElements.forEach(element => {
-            const speed = 0.3;
-            element.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-    });
-}
-
-// Инициализация аудио плееров
+// Инициализация аудио плееров с менеджером
 function initAudioPlayers() {
     const audioPlayers = document.querySelectorAll('audio');
     audioPlayers.forEach(audio => {
@@ -270,23 +266,15 @@ function initAudioPlayers() {
             if (audioContext && audioContext.state === 'suspended') {
                 audioContext.resume();
             }
+            
+            // Используем менеджер для управления воспроизведением
+            audioManager.playAudio(this);
         });
-    });
-}
-
-// Дополнительные эффекты для улучшения UX
-function enhanceUserExperience() {
-    // Добавляем плавное появление элементов при загрузке
-    const elementsToAnimate = document.querySelectorAll('.hero, .portfolio, .guitar-section');
-    elementsToAnimate.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
         
-        setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-        }, 100 + index * 200);
+        // Добавляем обработчик окончания трека
+        audio.addEventListener('ended', function() {
+            audioManager.currentPlaying = null;
+        });
     });
 }
 
@@ -295,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initGuitarEffects();
     initGuitarSounds();
-    initParallax();
     initAudioPlayers();
     
     // Добавляем анимацию для карточек портфолио
@@ -316,15 +303,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализируем первую вкладку
     showTab('code');
-    
-    // Добавляем обработчики для кнопок воспроизведения Sokoninaru
-    document.querySelectorAll('.play-sokoninaru').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const trackNumber = parseInt(this.dataset.track);
-            playSokoninaruTrack(trackNumber);
-        });
-    });
 });
+
+// Дополнительные эффекты для улучшения UX
+function enhanceUserExperience() {
+    // Добавляем плавное появление элементов при загрузке
+    const elementsToAnimate = document.querySelectorAll('.hero, .portfolio, .guitar-section');
+    elementsToAnimate.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, 100 + index * 200);
+    });
+}
 
 // Запускаем улучшения после полной загрузки страницы
 window.addEventListener('load', enhanceUserExperience);
@@ -335,31 +330,3 @@ document.addEventListener('click', function() {
         audioContext.resume();
     }
 }, { once: true });
-
-// Дополнительные анимации для интерактивных элементов
-function initInteractiveAnimations() {
-    // Анимация при наведении на кнопки
-    document.querySelectorAll('.btn, .chord-btn, .social-link').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-    
-    // Анимация карточек при наведении
-    document.querySelectorAll('.work-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-}
-
-// Инициализация интерактивных анимаций после загрузки
-window.addEventListener('load', initInteractiveAnimations);
