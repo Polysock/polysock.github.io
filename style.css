@@ -604,35 +604,41 @@ audio::-webkit-media-controls-timeline {
     border-color: rgba(42, 157, 143, 0.5);
 }
 
-/* Секция "О себе" - исправления для мобильных */
+/* Секция "О себе" - исправленная версия */
 .about {
     padding: 80px 20px;
     background: var(--darker-bg);
     position: relative;
-}
-
-.section-subtitle {
-    text-align: center;
-    color: var(--dark-text-secondary);
-    font-size: 1.1rem;
-    margin-bottom: 50px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .about-content {
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
-/* Основной блок о себе */
+/* Основной блок о себе - ИСПРАВЛЕНИЕ ГРИДА */
 .about-main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 50px;
-    align-items: start; /* Изменил с center на start */
+    display: block; /* Меняем grid на block для мобильных по умолчанию */
     margin-bottom: 60px;
+    width: 100%;
+}
+
+/* Для десктопов используем грид */
+@media (min-width: 769px) {
+    .about-main {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+}
+
+.about-text {
+    width: 100%;
+    margin-bottom: 40px;
 }
 
 .about-text h3 {
@@ -643,6 +649,7 @@ audio::-webkit-media-controls-timeline {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
+    text-align: center;
 }
 
 .about-text p {
@@ -650,6 +657,7 @@ audio::-webkit-media-controls-timeline {
     margin-bottom: 20px;
     line-height: 1.7;
     font-size: 1rem;
+    text-align: left;
 }
 
 /* Статистика */
@@ -658,6 +666,7 @@ audio::-webkit-media-controls-timeline {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 30px;
+    width: 100%;
 }
 
 .stat-item {
@@ -692,8 +701,36 @@ audio::-webkit-media-controls-timeline {
 .about-image {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Изменил с center на flex-start */
-    padding-top: 20px; /* Добавил отступ сверху */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.about-art {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(42, 157, 143, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.about-art:hover {
+    transform: scale(1.05);
+    border-color: rgba(42, 157, 143, 0.6);
+    box-shadow: 0 12px 35px rgba(42, 157, 143, 0.2);
+}
+
+.about-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.about-art:hover img {
+    transform: scale(1.1);
 }
 
 .image-placeholder {
@@ -726,6 +763,22 @@ audio::-webkit-media-controls-timeline {
 .image-placeholder p {
     font-size: 0.9rem;
     text-align: center;
+}
+
+/* Для десктопов убираем отступы и меняем порядок */
+@media (min-width: 769px) {
+    .about-text {
+        margin-bottom: 0;
+        text-align: left;
+    }
+    
+    .about-text h3 {
+        text-align: left;
+    }
+    
+    .about-image {
+        margin-bottom: 0;
+    }
 }
 
 /* Детали */
@@ -841,116 +894,54 @@ blockquote {
     font-size: 1rem;
 }
 
-/* Анимации */
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.section-subtitle {
+    text-align: center;
+    color: var(--dark-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.about-main,
-.about-details,
-.about-quote {
+/* Анимации для карточек */
+.info-card, .about-main, .about-details, .about-quote {
     animation: slideInUp 0.8s ease-out;
 }
+
+.info-card:nth-child(1) { animation-delay: 0.1s; }
+.info-card:nth-child(2) { animation-delay: 0.2s; }
+.info-card:nth-child(3) { animation-delay: 0.3s; }
+.info-card:nth-child(4) { animation-delay: 0.4s; }
+.info-card:nth-child(5) { animation-delay: 0.5s; }
+.info-card:nth-child(6) { animation-delay: 0.6s; }
 
 .about-details .detail-card:nth-child(1) { animation-delay: 0.1s; }
 .about-details .detail-card:nth-child(2) { animation-delay: 0.2s; }
 .about-details .detail-card:nth-child(3) { animation-delay: 0.3s; }
 
-/* Адаптивность - ВАЖНЫЕ ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ */
-@media (max-width: 968px) {
-    .about-main {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-    
-    .about-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-    }
-    
-    .stat-number {
-        font-size: 1.8rem;
-    }
-    
-    .about-image {
-        order: -1; /* Перемещаем изображение наверх */
-        padding-top: 0;
-        margin-bottom: 20px;
-    }
-    
-    .image-placeholder {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-    }
-}
-
+/* Адаптивность для мобильных */
 @media (max-width: 768px) {
     .about {
-        padding: 60px 15px; /* Уменьшил отступы */
-    }
-    
-    .about-content {
-        width: 100%;
-        overflow: hidden; /* Предотвращаем вылезание контента */
-    }
-    
-    .about-main {
-        gap: 30px;
-        margin-bottom: 40px;
+        padding: 60px 15px;
     }
     
     .about-text h3 {
         font-size: 1.6rem;
-        margin-bottom: 15px;
+        text-align: center;
     }
     
     .about-text p {
+        text-align: center;
         font-size: 0.95rem;
-        margin-bottom: 15px;
-        text-align: left; /* Выравнивание по левому краю для лучшей читаемости */
-    }
-    
-    .about-details {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-bottom: 40px;
-    }
-    
-    .detail-card {
-        padding: 25px 20px;
-        margin: 0 5px; /* Добавил небольшие отступы по бокам */
     }
     
     .about-stats {
         grid-template-columns: 1fr;
         gap: 15px;
-        margin-top: 25px;
     }
     
-    .stat-item {
-        padding: 15px;
-    }
-    
-    .about-quote {
-        padding: 30px 20px;
-        margin: 20px 5px 0 5px; /* Добавил отступы по бокам */
-    }
-    
-    blockquote {
-        font-size: 1.1rem;
-        line-height: 1.5;
-    }
-    
-    .image-placeholder {
+    .about-art, .image-placeholder {
         width: 150px;
         height: 150px;
     }
@@ -958,11 +949,28 @@ blockquote {
     .image-placeholder span {
         font-size: 2.5rem;
     }
+    
+    .about-details {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .detail-card {
+        padding: 25px 20px;
+    }
+    
+    .about-quote {
+        padding: 30px 20px;
+    }
+    
+    blockquote {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 480px) {
     .about {
-        padding: 50px 10px; /* Еще меньше отступы на очень маленьких экранах */
+        padding: 50px 10px;
     }
     
     .about-text h3 {
@@ -971,40 +979,9 @@ blockquote {
     
     .about-text p {
         font-size: 0.9rem;
-        line-height: 1.6;
     }
     
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    
-    .stat-item {
-        padding: 12px;
-    }
-    
-    .stat-number {
-        font-size: 1.6rem;
-    }
-    
-    .stat-label {
-        font-size: 0.85rem;
-    }
-    
-    .about-quote {
-        padding: 25px 15px;
-        margin: 15px 0 0 0;
-    }
-    
-    blockquote {
-        font-size: 1rem;
-    }
-    
-    .quote-author {
-        font-size: 0.9rem;
-    }
-    
-    .image-placeholder {
+    .about-art, .image-placeholder {
         width: 130px;
         height: 130px;
     }
@@ -1013,52 +990,12 @@ blockquote {
         font-size: 2rem;
     }
     
-    .image-placeholder p {
-        font-size: 0.8rem;
+    .about-quote {
+        padding: 25px 15px;
     }
     
-    .detail-card {
-        padding: 20px 15px;
-    }
-    
-    .detail-icon {
-        font-size: 2rem;
-    }
-    
-    .detail-card h4 {
-        font-size: 1.1rem;
-    }
-    
-    .detail-list li {
-        font-size: 0.9rem;
-    }
-}
-
-/* Дополнительные исправления для очень маленьких экранов */
-@media (max-width: 360px) {
-    .about {
-        padding: 40px 8px;
-    }
-    
-    .about-text h3 {
-        font-size: 1.3rem;
-    }
-    
-    .about-stats {
-        gap: 10px;
-    }
-    
-    .stat-item {
-        padding: 10px 8px;
-    }
-    
-    .stat-number {
-        font-size: 1.4rem;
-    }
-    
-    .image-placeholder {
-        width: 120px;
-        height: 120px;
+    blockquote {
+        font-size: 1rem;
     }
 }
 
@@ -1132,34 +1069,7 @@ blockquote {
     font-size: 0.9rem;
 }
 
-/* Анимации для карточек */
-@keyframes cardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.info-card, .about-main, .about-details, .about-quote {
-    animation: slideInUp 0.8s ease-out;
-}
-
-.info-card:nth-child(1) { animation-delay: 0.1s; }
-.info-card:nth-child(2) { animation-delay: 0.2s; }
-.info-card:nth-child(3) { animation-delay: 0.3s; }
-.info-card:nth-child(4) { animation-delay: 0.4s; }
-.info-card:nth-child(5) { animation-delay: 0.5s; }
-.info-card:nth-child(6) { animation-delay: 0.6s; }
-
-.about-details .detail-card:nth-child(1) { animation-delay: 0.1s; }
-.about-details .detail-card:nth-child(2) { animation-delay: 0.2s; }
-.about-details .detail-card:nth-child(3) { animation-delay: 0.3s; }
-
-/* Адаптивность */
+/* Общая адаптивность */
 @media (max-width: 768px) {
     .hero {
         grid-template-columns: 1fr;
@@ -1199,12 +1109,12 @@ blockquote {
         text-align: center;
     }
 
-    .city-grid, .about-details {
+    .city-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
     
-    .info-card, .detail-card {
+    .info-card {
         padding: 15px;
         flex-direction: column;
         text-align: center;
@@ -1236,47 +1146,6 @@ blockquote {
         width: 100%;
         max-width: 250px;
         justify-content: center;
-    }
-
-    .about {
-        padding: 60px 20px;
-    }
-    
-    .about-main {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .about-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-    }
-    
-    .detail-card {
-        padding: 25px 20px;
-    }
-    
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .about-quote {
-        padding: 30px 20px;
-    }
-    
-    blockquote {
-        font-size: 1.1rem;
-    }
-    
-    .image-placeholder {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .image-placeholder span {
-        font-size: 2.5rem;
     }
 }
 
@@ -1313,22 +1182,6 @@ blockquote {
     .city-overlay h2 {
         font-size: 1.8rem;
     }
-
-    .about-text h3 {
-        font-size: 1.5rem;
-    }
-    
-    .stat-item {
-        padding: 15px;
-    }
-    
-    .about-quote {
-        padding: 25px 15px;
-    }
-    
-    blockquote {
-        font-size: 1rem;
-    }
 }
 
 @media (min-width: 769px) {
@@ -1341,224 +1194,4 @@ blockquote {
         flex: 1;
         min-width: 200px;
     }
-}
-/* Исправления для секции "О себе" - убираем горизонтальный скролл */
-.about {
-    padding: 80px 20px;
-    background: var(--darker-bg);
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden; /* Важно: предотвращаем горизонтальный скролл */
-}
-
-.about-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Основной блок о себе */
-.about-main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 50px;
-    align-items: start;
-    margin-bottom: 60px;
-    width: 100%;
-    max-width: 100%;
-}
-
-/* Остальные стили остаются такими же как в предыдущем ответе... */
-
-/* ВАЖНО: Исправления для мобильных - убираем вылезание за экран */
-@media (max-width: 968px) {
-    .about-main {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    .about-image {
-        order: -1;
-        padding-top: 0;
-        margin-bottom: 20px;
-    }
-    
-    .image-placeholder {
-        width: 180px;
-        height: 180px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .about {
-        padding: 60px 15px;
-        width: 100vw; /* Важно: занимаем ровно ширину viewport */
-        margin-left: calc(-50vw + 50%); /* Центрируем секцию */
-        margin-right: calc(-50vw + 50%);
-        left: 0;
-        right: 0;
-        position: relative;
-    }
-    
-    .about-content {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-        margin: 0 auto;
-    }
-    
-    .about-main {
-        gap: 30px;
-        margin-bottom: 40px;
-        width: 100%;
-    }
-    
-    .about-text h3 {
-        font-size: 1.6rem;
-        margin-bottom: 15px;
-    }
-    
-    .about-text p {
-        font-size: 0.95rem;
-        margin-bottom: 15px;
-        text-align: left;
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .about-details {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-bottom: 40px;
-        width: 100%;
-    }
-    
-    .detail-card {
-        padding: 25px 20px;
-        margin: 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        margin-top: 25px;
-        width: 100%;
-    }
-    
-    .stat-item {
-        padding: 15px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .about-quote {
-        padding: 30px 20px;
-        margin: 20px 0 0 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    blockquote {
-        font-size: 1.1rem;
-        line-height: 1.5;
-    }
-    
-    .image-placeholder {
-        width: 150px;
-        height: 150px;
-    }
-}
-
-@media (max-width: 480px) {
-    .about {
-        padding: 50px 10px;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        margin-right: calc(-50vw + 50%);
-    }
-    
-    .about-content {
-        padding: 0 5px;
-    }
-    
-    .about-text h3 {
-        font-size: 1.4rem;
-    }
-    
-    .about-text p {
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-    
-    .about-stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    
-    .stat-item {
-        padding: 12px;
-    }
-    
-    .stat-number {
-        font-size: 1.6rem;
-    }
-    
-    .stat-label {
-        font-size: 0.85rem;
-    }
-    
-    .about-quote {
-        padding: 25px 15px;
-        margin: 15px 0 0 0;
-    }
-    
-    blockquote {
-        font-size: 1rem;
-    }
-    
-    .image-placeholder {
-        width: 130px;
-        height: 130px;
-    }
-}
-
-/* Дополнительное исправление для контейнера */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden; /* Предотвращаем горизонтальный скролл у контейнера */
-}
-
-/* Исправляем возможные проблемы с шириной у других секций */
-.portfolio, .footer {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* Убедимся, что body не создает горизонтальный скролл */
-body {
-    font-family: 'Inter', sans-serif;
-    background: var(--dark-bg);
-    color: var(--dark-text);
-    overflow-x: hidden; /* Ключевое исправление! */
-    line-height: 1.6;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    width: 100%;
-    max-width: 100vw;
 }
