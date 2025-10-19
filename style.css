@@ -482,6 +482,76 @@ h1 {
     background: var(--dark-card);
 }
 
+/* Стили для плейлиста */
+.playlist {
+    margin-top: 15px;
+    border: 1px solid rgba(42, 157, 143, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.playlist-item:last-child {
+    border-bottom: none;
+}
+
+.playlist-item:hover {
+    background: rgba(42, 157, 143, 0.05);
+}
+
+.track-number {
+    width: 25px;
+    color: var(--aquamarine);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.track-title {
+    flex: 1;
+    color: var(--dark-text);
+    font-size: 0.9rem;
+}
+
+.play-btn {
+    background: rgba(42, 157, 143, 0.1);
+    border: 1px solid rgba(42, 157, 143, 0.3);
+    color: var(--aquamarine);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    transition: all 0.3s ease;
+}
+
+.play-btn:hover {
+    background: rgba(42, 157, 143, 0.2);
+    transform: scale(1.1);
+}
+
+.spotify-embed {
+    padding: 15px;
+    background: rgba(42, 157, 143, 0.05);
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(42, 157, 143, 0.1);
+}
+
+.spotify-embed p {
+    margin: 5px 0;
+    color: var(--dark-text);
+}
+
 /* Футер */
 .footer {
     background: var(--darker-bg);
