@@ -399,63 +399,71 @@ h1 {
         rgba(109, 74, 255, 0.15));
 }
 
-/* УНИВЕРСАЛЬНЫЕ СТИЛИ ДЛЯ АУДИО-ПЛЕЕРОВ */
-.audio-player {
-    margin-top: 15px;
-}
-
-.audio-player audio,
+/* СИЛЬНЫЕ СТИЛИ ДЛЯ АУДИО-ПЛЕЕРОВ */
+.audio-player,
 .track-player {
-    width: 100%;
-    border-radius: 8px;
-    background: var(--dark-card);
+    width: 100% !important;
+    height: 50px !important;
+    margin-top: 15px;
+    border-radius: 8px !important;
+    background: var(--dark-card) !important;
 }
 
-/* Стили для WebKit браузеров (Chrome, Safari, Edge) */
-.audio-player audio::-webkit-media-controls-panel,
-.track-player::-webkit-media-controls-panel {
-    background: var(--dark-card);
-    border-radius: 8px;
+/* Принудительные стили для всех аудио элементов */
+audio {
+    width: 100% !important;
+    height: 50px !important;
+    border-radius: 8px !important;
+    background: var(--dark-card) !important;
 }
 
-.audio-player audio::-webkit-media-controls-play-button,
-.track-player::-webkit-media-controls-play-button {
-    background-color: var(--aquamarine);
-    border-radius: 50%;
+/* Стили для WebKit (Chrome, Safari, Edge) */
+audio::-webkit-media-controls-panel {
+    background: var(--dark-card) !important;
+    border-radius: 8px !important;
 }
 
-.audio-player audio::-webkit-media-controls-current-time-display,
-.audio-player audio::-webkit-media-controls-time-remaining-display,
-.track-player::-webkit-media-controls-current-time-display,
-.track-player::-webkit-media-controls-time-remaining-display {
-    color: var(--dark-text);
+audio::-webkit-media-controls-play-button {
+    background-color: var(--aquamarine) !important;
+    border-radius: 50% !important;
 }
 
-.audio-player audio::-webkit-media-controls-timeline,
-.track-player::-webkit-media-controls-timeline {
-    background-color: rgba(42, 157, 143, 0.2);
-    border-radius: 2px;
-    margin-left: 10px;
-    margin-right: 10px;
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: var(--dark-text) !important;
+    font-size: 12px !important;
 }
 
-.audio-player audio::-webkit-media-controls-volume-slider,
-.track-player::-webkit-media-controls-volume-slider {
-    background-color: rgba(42, 157, 143, 0.2);
-    border-radius: 2px;
+audio::-webkit-media-controls-timeline {
+    background-color: rgba(42, 157, 143, 0.2) !important;
+    border-radius: 2px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
 }
 
-.audio-player audio::-webkit-media-controls-mute-button,
-.track-player::-webkit-media-controls-mute-button {
-    background-color: rgba(42, 157, 143, 0.3);
-    border-radius: 50%;
+audio::-webkit-media-controls-volume-slider {
+    background-color: rgba(42, 157, 143, 0.2) !important;
+    border-radius: 2px !important;
+}
+
+audio::-webkit-media-controls-mute-button {
+    background-color: rgba(42, 157, 143, 0.3) !important;
+    border-radius: 50% !important;
 }
 
 /* Стили для Firefox */
-.audio-player audio,
-.track-player {
-    background: var(--dark-card);
-    height: 40px;
+audio::-moz-range-track {
+    background-color: rgba(42, 157, 143, 0.2) !important;
+    border-radius: 2px !important;
+    height: 4px !important;
+}
+
+audio::-moz-range-thumb {
+    background-color: var(--aquamarine) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 12px !important;
+    height: 12px !important;
 }
 
 /* Стили для плейлиста */
@@ -525,11 +533,6 @@ h1 {
         flex: 1;
         min-width: 200px;
     }
-    
-    .track-player {
-        flex: 2;
-        min-width: 250px;
-    }
 }
 
 /* Адаптивность для аудио-плееров */
@@ -544,9 +547,14 @@ h1 {
         width: 100%;
     }
     
-    .audio-player audio,
-    .track-player {
-        height: 45px;
+    audio {
+        height: 55px !important;
+    }
+    
+    /* Увеличиваем кнопки для мобильных */
+    audio::-webkit-media-controls-play-button {
+        width: 35px !important;
+        height: 35px !important;
     }
 }
 
