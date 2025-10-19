@@ -7,10 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Переключатель темы -->
-    <div class="theme-switcher">
-        <button id="themeToggle">🌙</button>
-    </div>
+    <!-- Убрали переключатель темы -->
 
     <!-- Герой-секция -->
     <section class="hero">
@@ -51,16 +48,19 @@
     <!-- Портфолио с вкладками -->
     <section class="portfolio" id="portfolio">
         <div class="container">
-            <div class="tabs">
-                <div class="tab active" onclick="showTab('code')">💻 Разработка</div>
-                <div class="tab" onclick="showTab('music')">🎸 Музыка</div>
-                <div class="tab" onclick="showTab('city')">🏙️ Мой город</div>
+            <div class="section-header">
+                <h2>Мои работы</h2>
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('code')">💻 Разработка</div>
+                    <div class="tab" onclick="showTab('music')">🎸 Музыка</div>
+                    <div class="tab" onclick="showTab('city')">🏙️ Мой город</div>
+                </div>
             </div>
             
             <!-- Вкладка разработки -->
             <div class="works-grid" id="code-tab">
                 <div class="work-card">
-                    <div class="work-image" style="background: linear-gradient(45deg, var(--aquamarine), var(--cyan))"></div>
+                    <div class="work-image"></div>
                     <div class="work-content">
                         <h3>Telegram боты</h3>
                         <p>Разработка многофункциональных чат-ботов на Python с использованием Telegram API</p>
@@ -73,7 +73,7 @@
                 </div>
                 
                 <div class="work-card">
-                    <div class="work-image" style="background: linear-gradient(45deg, var(--purple), var(--aquamarine))"></div>
+                    <div class="work-image"></div>
                     <div class="work-content">
                         <h3>Игры на Unity</h3>
                         <p>Разработка игровых проектов на C# в Unity с использованием ООП</p>
@@ -86,7 +86,7 @@
                 </div>
                 
                 <div class="work-card">
-                    <div class="work-image" style="background: linear-gradient(45deg, var(--cyan), var(--purple))"></div>
+                    <div class="work-image"></div>
                     <div class="work-content">
                         <h3>Go приложения</h3>
                         <p>Изучение и разработка на Go для создания высокопроизводительных приложений</p>
@@ -102,7 +102,7 @@
             <!-- Вкладка музыки -->
             <div class="works-grid" id="music-tab" style="display: none;">
                 <div class="work-card">
-                    <div class="music-image" style="background: linear-gradient(45deg, var(--purple), var(--cyan))"></div>
+                    <div class="music-image"></div>
                     <div class="work-content">
                         <h3>"Своя собственная дочь"</h3>
                         <p>Кавер на песню с собственной аранжировкой в стиле прогрессивный рок</p>
@@ -121,7 +121,7 @@
                 </div>
                 
                 <div class="work-card">
-                    <div class="music-image" style="background: linear-gradient(45deg, var(--aquamarine), var(--purple))"></div>
+                    <div class="music-image"></div>
                     <div class="work-content">
                         <h3>sokoninaru влияние</h3>
                         <p>Творчество под влиянием любимой группы sokoninaru</p>
@@ -132,25 +132,12 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="work-card">
-                    <div class="music-image" style="background: linear-gradient(45deg, var(--cyan), var(--aquamarine))"></div>
-                    <div class="work-content">
-                        <h3>Собственные композиции</h3>
-                        <p>Оригинальные инструментальные произведения с элементами прогрессивного рока</p>
-                        <div class="music-type">
-                            <span>Инструментал</span>
-                            <span>Progressive</span>
-                            <span>Эксперимент</span>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Вкладка города -->
             <div class="works-grid" id="city-tab" style="display: none;">
                 <div class="work-card city-card">
-                    <div class="city-image" style="background: linear-gradient(45deg, var(--aquamarine), var(--cyan))"></div>
+                    <div class="city-image"></div>
                     <div class="work-content">
                         <h3>Мой город</h3>
                         <p>Здесь будет раздел о твоем городе. Можешь добавить фото, описание местных достопримечательностей, интересных мест или музыкальной сцены.</p>
@@ -163,24 +150,6 @@
                                 <span class="detail-label">🎵 Музыкальная сцена:</span>
                                 <span class="detail-value">Прогрессив-рок сообщество</span>
                             </div>
-                            <div class="city-detail">
-                                <span class="detail-label">💻 IT-сообщество:</span>
-                                <span class="detail-value">Разработчики и геймдев</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="work-card city-card">
-                    <div class="city-image" style="background: linear-gradient(45deg, var(--purple), var(--aquamarine))"></div>
-                    <div class="work-content">
-                        <h3>Любимые места</h3>
-                        <p>Опиши свои любимые места в городе - где играешь музыку, программируешь или просто отдыхаешь.</p>
-                        <div class="city-features">
-                            <span>🎸 Музыкальные площадки</span>
-                            <span>💻 Коворкинги</span>
-                            <span>☕ Кофейни</span>
-                            <span>🌳 Парки</span>
                         </div>
                     </div>
                 </div>
@@ -197,27 +166,27 @@
             <div class="guitar">
                 <div class="guitar-body">
                     <div class="strings">
-                        <div class="string" data-note="E4" onclick="playNote('E4')">
+                        <div class="string" data-note="E4" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>E</span>
                         </div>
-                        <div class="string" data-note="B3" onclick="playNote('B3')">
+                        <div class="string" data-note="B3" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>B</span>
                         </div>
-                        <div class="string" data-note="G3" onclick="playNote('G3')">
+                        <div class="string" data-note="G3" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>G</span>
                         </div>
-                        <div class="string" data-note="D3" onclick="playNote('D3')">
+                        <div class="string" data-note="D3" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>D</span>
                         </div>
-                        <div class="string" data-note="A2" onclick="playNote('A2')">
+                        <div class="string" data-note="A2" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>A</span>
                         </div>
-                        <div class="string" data-note="E2" onclick="playNote('E2')">
+                        <div class="string" data-note="E2" onclick="playNote(this)">
                             <div class="string-line"></div>
                             <span>E</span>
                         </div>
@@ -231,7 +200,6 @@
                     <button class="chord-btn" onclick="playChord('C')">Cmaj7</button>
                     <button class="chord-btn" onclick="playChord('G')">G/B</button>
                     <button class="chord-btn" onclick="playChord('D')">Dsus4</button>
-                    <button class="chord-btn" onclick="playChord('Em')">Em9</button>
                     <button class="chord-btn" onclick="playChord('Am')">Am11</button>
                 </div>
             </div>
@@ -254,16 +222,6 @@
                         <a href="https://github.com/your_github" class="social-link" target="_blank">GitHub</a>
                         <a href="https://youtube.com/your_channel" class="social-link" target="_blank">YouTube</a>
                         <a href="https://soundcloud.com/your_profile" class="social-link" target="_blank">SoundCloud</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Навыки</h4>
-                    <div class="footer-skills">
-                        <span>Python</span>
-                        <span>C#</span>
-                        <span>Go</span>
-                        <span>Unity</span>
-                        <span>Progressive Rock</span>
                     </div>
                 </div>
             </div>
