@@ -91,10 +91,10 @@ function initAudioPlayers() {
     });
 }
 
-// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initAudioPlayers();
+    initHeroButtons(); // Добавляем эту строку
     
     // Добавляем анимацию для карточек портфолио
     document.querySelectorAll('.work-card').forEach((card, index) => {
