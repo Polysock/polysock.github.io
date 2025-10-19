@@ -1,26 +1,3 @@
-// Инициализация темы
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.body.setAttribute('data-theme', savedTheme);
-    updateThemeToggle(savedTheme);
-}
-
-// Переключение темы
-function toggleTheme() {
-    const currentTheme = document.body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeToggle(newTheme);
-}
-
-// Обновление иконки переключателя темы
-function updateThemeToggle(theme) {
-    const toggle = document.getElementById('themeToggle');
-    toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
-}
-
 // Анимация появления элементов при скролле
 function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -39,19 +16,25 @@ function initScrollAnimations() {
     });
 }
 
-// Функции для гитары
-function playNote(note) {
-    const string = document.querySelector(`[data-note="${note}"]`);
-    string.classList.add('active');
+// Функции для гитары (ИСПРАВЛЕННЫЕ)
+function playNote(stringElement) {
+    // Убираем активный класс у всех струн
+    document.querySelectorAll('.string').forEach(str => {
+        str.classList.remove('active');
+    });
+    
+    // Добавляем активный класс к нажатой струне
+    stringElement.classList.add('active');
     
     // Создаем звуковую волну (визуальный эффект)
-    createSoundWave(string);
+    createSoundWave(stringElement);
     
+    // Убираем активный класс через время
     setTimeout(() => {
-        string.classList.remove('active');
+        stringElement.classList.remove('active');
     }, 300);
     
-    console.log(`Playing note: ${note}`);
+    console.log(`Playing note: ${stringElement.dataset.note}`);
 }
 
 function playChord(chord) {
@@ -88,12 +71,15 @@ function createSoundWave(element) {
         transform: scaleX(0);
         animation: soundWave 0.5s ease-out;
         border-radius: 50%;
+        pointer-events: none;
     `;
     
     element.appendChild(wave);
     
     setTimeout(() => {
-        wave.remove();
+        if (wave.parentNode === element) {
+            wave.remove();
+        }
     }, 500);
 }
 
@@ -134,89 +120,75 @@ function showTab(tabName) {
     });
     
     // Показываем нужный таб и активируем кнопку
-    document.getElementById(tabName + '-tab').style.display = 'grid';
-    event.target.classList.add('active');
+    const targetTab = document.getElementById(tabName + '-tab');
+    if (targetTab) {
+        targetTab.style.display = 'grid';
+    }
+    
+    // Активируем кнопку
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
     
     // Запускаем анимации для новых элементов
     setTimeout(initScrollAnimations, 100);
 }
 
-// Параллакс эффект для герой-секции
-function initParallax() {
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('.code-side, .music-side');
-        
-        parallaxElements.forEach(element => {
-            const speed = 0.3;
-            element.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-    });
-}
-
 // Случайные гитарные риффы при наведении
 function initGuitarEffects() {
     const guitar = document.querySelector('.guitar');
-    const notes = ['E4', 'B3', 'G3', 'D3', 'A2', 'E2'];
+    const strings = document.querySelectorAll('.string');
     
-    guitar.addEventListener('mouseenter', () => {
-        // Случайно играем несколько нот при наведении на гитару
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                const randomNote = notes[Math.floor(Math.random() * notes.length)];
-                playNote(randomNote);
-            }, i * 200);
-        }
-    });
+    if (guitar && strings.length > 0) {
+        guitar.addEventListener('mouseenter', () => {
+            // Случайно играем несколько нот при наведении на гитару
+            for (let i = 0; i < 2; i++) {
+                setTimeout(() => {
+                    const randomString = strings[Math.floor(Math.random() * strings.length)];
+                    playNote(randomString);
+                }, i * 300);
+            }
+        });
+    }
 }
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
-    initTheme();
     initScrollAnimations();
-    initParallax();
     initGuitarEffects();
-    
-    // Добавляем обработчик для переключателя темы
-    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     
     // Добавляем анимацию для карточек портфолио
     document.querySelectorAll('.work-card').forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
     });
     
-    // Добавляем реальные ссылки на социальные сети
-    const socialLinks = {
-        telegram: 'https://t.me/your_telegram',
-        github: 'https://github.com/your_github',
-        youtube: 'https://youtube.com/your_channel',
-        soundcloud: 'https://soundcloud.com/your_profile'
-    };
+    // Добавляем обработчики для табов (на случай если JS не сработает через onclick)
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('onclick').match(/showTab\('(\w+)'\)/)[1];
+            showTab(tabName);
+        });
+    });
     
-    // Можно раскомментировать и заполнить своими ссылками:
-    /*
-    document.querySelector('a[href*="telegram"]').href = socialLinks.telegram;
-    document.querySelector('a[href*="github"]').href = socialLinks.github;
-    document.querySelector('a[href*="youtube"]').href = socialLinks.youtube;
-    document.querySelector('a[href*="soundcloud"]').href = socialLinks.soundcloud;
-    */
+    // Инициализируем первую вкладку
+    showTab('code');
 });
 
-// Дополнительные эффекты
-function typeWriter(element, text, speed = 50) {
-    let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    type();
+// Дополнительные эффекты для улучшения UX
+function enhanceUserExperience() {
+    // Добавляем плавное появление элементов при загрузке
+    const elementsToAnimate = document.querySelectorAll('.hero, .portfolio, .guitar-section');
+    elementsToAnimate.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, 100 + index * 200);
+    });
 }
 
-// Можно добавить печатный эффект для заголовков
-// Например, при загрузке страницы:
-// typeWriter(document.querySelector('.code-side h1'), 'Polysok / Yuaself');
+// Запускаем улучшения после полной загрузки страницы
+window.addEventListener('load', enhanceUserExperience);
