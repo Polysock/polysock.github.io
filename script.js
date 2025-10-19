@@ -1,7 +1,3 @@
-// Аудио контекст для гитары
-let audioContext;
-let guitarSounds = {};
-
 // Менеджер аудио для управления воспроизведением
 const audioManager = {
     currentPlaying: null,
@@ -11,66 +7,17 @@ const audioManager = {
         if (this.currentPlaying && this.currentPlaying !== audioElement) {
             this.currentPlaying.pause();
             this.currentPlaying.currentTime = 0;
+            
+            // Сбрасываем кнопку предыдущего плеера
+            const prevButton = this.currentPlaying.parentNode.querySelector('button');
+            if (prevButton) {
+                prevButton.innerHTML = '▶';
+            }
         }
         
         this.currentPlaying = audioElement;
-    },
-    
-    stopAll() {
-        if (this.currentPlaying) {
-            this.currentPlaying.pause();
-            this.currentPlaying.currentTime = 0;
-        }
-        this.currentPlaying = null;
     }
 };
-
-// Инициализация звуков гитары
-function initGuitarSounds() {
-    try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Создаем звуки для каждой струны (синусоидальные волны)
-        const frequencies = {
-            'E2': 82.41,
-            'A2': 110.00,
-            'D3': 146.83,
-            'G3': 196.00,
-            'B3': 246.94,
-            'E4': 329.63
-        };
-
-        Object.keys(frequencies).forEach(note => {
-            guitarSounds[note] = frequencies[note];
-        });
-        
-        console.log('Гитара настроена и готова к игре!');
-    } catch (e) {
-        console.log('Аудио не поддерживается в этом браузере');
-    }
-}
-
-// Воспроизведение звука гитары
-function playGuitarSound(frequency) {
-    try {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.value = frequency;
-        
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.5);
-    } catch (e) {
-        console.log('Ошибка воспроизведения звука:', e);
-    }
-}
 
 // Анимация появления элементов при скролле
 function initScrollAnimations() {
@@ -83,111 +30,12 @@ function initScrollAnimations() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.work-card, .guitar-section, .chords, .footer-section').forEach((el, index) => {
+    document.querySelectorAll('.work-card, .footer-section').forEach((el, index) => {
         el.style.opacity = '0';
         el.dataset.delay = `${index * 0.2}s`;
         observer.observe(el);
     });
 }
-
-// Функции для гитары (ИСПРАВЛЕННЫЕ С ЗВУКОМ)
-function playNote(stringElement) {
-    // Убираем активный класс у всех струн
-    document.querySelectorAll('.string').forEach(str => {
-        str.classList.remove('active');
-    });
-    
-    // Добавляем активный класс к нажатой струне
-    stringElement.classList.add('active');
-    
-    // Создаем звуковую волну (визуальный эффект)
-    createSoundWave(stringElement);
-    
-    // Воспроизводим звук гитары
-    const note = stringElement.dataset.note;
-    if (audioContext && guitarSounds[note]) {
-        // Активируем аудиоконтекст при первом взаимодействии
-        if (audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-        playGuitarSound(guitarSounds[note]);
-    }
-    
-    // Убираем активный класс через время
-    setTimeout(() => {
-        stringElement.classList.remove('active');
-    }, 300);
-    
-    console.log(`Playing note: ${note}`);
-}
-
-function playChord(chord) {
-    const button = event.target;
-    button.style.transform = 'scale(0.95)';
-    
-    // Анимация аккорда - вибрируем все струны
-    const strings = document.querySelectorAll('.string');
-    strings.forEach(string => {
-        string.classList.add('active');
-        createSoundWave(string);
-    });
-    
-    // Воспроизводим арпеджио аккорда
-    if (audioContext) {
-        const chordNotes = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'];
-        chordNotes.forEach((note, index) => {
-            setTimeout(() => {
-                if (guitarSounds[note]) {
-                    playGuitarSound(guitarSounds[note]);
-                }
-            }, index * 100);
-        });
-    }
-    
-    setTimeout(() => {
-        strings.forEach(string => {
-            string.classList.remove('active');
-        });
-        button.style.transform = '';
-    }, 600);
-    
-    console.log(`Playing chord: ${chord}`);
-}
-
-// Визуальный эффект звуковой волны
-function createSoundWave(element) {
-    const wave = document.createElement('div');
-    wave.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--aquamarine), transparent);
-        transform: scaleX(0);
-        animation: soundWave 0.5s ease-out;
-        border-radius: 50%;
-        pointer-events: none;
-    `;
-    
-    element.appendChild(wave);
-    
-    setTimeout(() => {
-        if (wave.parentNode === element) {
-            wave.remove();
-        }
-    }, 500);
-}
-
-// Добавляем CSS для звуковой волны
-const waveStyle = document.createElement('style');
-waveStyle.textContent = `
-    @keyframes soundWave {
-        0% { transform: scaleX(0); opacity: 1; }
-        100% { transform: scaleX(1); opacity: 0; }
-    }
-`;
-document.head.appendChild(waveStyle);
 
 // Плавный скролл для якорных ссылок
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -230,67 +78,82 @@ function showTab(tabName) {
     setTimeout(initScrollAnimations, 100);
 }
 
-// Случайные гитарные риффы при наведении
-function initGuitarEffects() {
-    const guitar = document.querySelector('.guitar');
-    const strings = document.querySelectorAll('.string');
+// Инициализация кастомных аудио-контролов
+function initCustomAudioControls() {
+    const audioElements = document.querySelectorAll('audio');
     
-    if (guitar && strings.length > 0) {
-        guitar.addEventListener('mouseenter', () => {
-            // Активируем аудиоконтекст при первом взаимодействии
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            
-            // Случайно играем несколько нот при наведении на гитару
-            for (let i = 0; i < 2; i++) {
-                setTimeout(() => {
-                    const randomString = strings[Math.floor(Math.random() * strings.length)];
-                    playNote(randomString);
-                }, i * 300);
+    audioElements.forEach(audio => {
+        // Скрываем стандартный аудио-элемент
+        audio.style.display = 'none';
+        
+        // Создаем кастомную обертку
+        const wrapper = document.createElement('div');
+        wrapper.className = 'custom-audio-player';
+        
+        // Создаем кнопку воспроизведения
+        const playButton = document.createElement('button');
+        playButton.innerHTML = '▶';
+        
+        // Создаем индикатор прогресса
+        const progress = document.createElement('div');
+        progress.className = 'progress';
+        
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        
+        progress.appendChild(progressBar);
+        
+        // Обработчики событий
+        playButton.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                audioManager.playAudio(audio);
+            } else {
+                audio.pause();
             }
         });
-    }
-}
-
-// Инициализация аудио плееров с менеджером
-function initAudioPlayers() {
-    const audioPlayers = document.querySelectorAll('audio');
-    audioPlayers.forEach(audio => {
-        audio.controls = true;
-        audio.preload = 'metadata';
         
-        // Добавляем обработчик для безопасного воспроизведения
-        audio.addEventListener('play', function() {
-            // Активируем аудиоконтекст при первом взаимодействии
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            
-            // Используем менеджер для управления воспроизведением
-            audioManager.playAudio(this);
+        audio.addEventListener('play', () => {
+            playButton.innerHTML = '⏸';
         });
         
-        // Добавляем обработчик окончания трека
-        audio.addEventListener('ended', function() {
+        audio.addEventListener('pause', () => {
+            playButton.innerHTML = '▶';
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percent + '%';
+            }
+        });
+        
+        audio.addEventListener('ended', () => {
+            playButton.innerHTML = '▶';
+            progressBar.style.width = '0%';
             audioManager.currentPlaying = null;
         });
+        
+        // Вставляем элементы
+        wrapper.appendChild(playButton);
+        wrapper.appendChild(progress);
+        
+        // Вставляем кастомный плеер после аудио-элемента
+        audio.parentNode.insertBefore(wrapper, audio.nextSibling);
     });
 }
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
-    initGuitarEffects();
-    initGuitarSounds();
-    initAudioPlayers();
+    initCustomAudioControls();
     
     // Добавляем анимацию для карточек портфолио
     document.querySelectorAll('.work-card').forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
     });
     
-    // Добавляем обработчики для табов (на случай если JS не сработает через onclick)
+    // Добавляем обработчики для табов
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', function() {
             const onclickAttr = this.getAttribute('onclick');
@@ -307,8 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Дополнительные эффекты для улучшения UX
 function enhanceUserExperience() {
-    // Добавляем плавное появление элементов при загрузке
-    const elementsToAnimate = document.querySelectorAll('.hero, .portfolio, .guitar-section');
+    const elementsToAnimate = document.querySelectorAll('.hero, .portfolio');
     elementsToAnimate.forEach((el, index) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
@@ -323,100 +185,3 @@ function enhanceUserExperience() {
 
 // Запускаем улучшения после полной загрузки страницы
 window.addEventListener('load', enhanceUserExperience);
-
-// Обработчик для активации аудио контекста при любом клике (требование браузеров)
-document.addEventListener('click', function() {
-    if (audioContext && audioContext.state === 'suspended') {
-        audioContext.resume();
-    }
-}, { once: true });
-
-// Функция для создания кастомных аудио-контролов
-function initCustomAudioControls() {
-    const audioElements = document.querySelectorAll('audio');
-    
-    audioElements.forEach(audio => {
-        // Создаем кастомную обертку
-        const wrapper = document.createElement('div');
-        wrapper.className = 'custom-audio-player';
-        wrapper.style.cssText = `
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--dark-card);
-            border-radius: 8px;
-            margin-top: 10px;
-        `;
-        
-        // Создаем кнопку воспроизведения
-        const playButton = document.createElement('button');
-        playButton.innerHTML = '▶';
-        playButton.style.cssText = `
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: var(--aquamarine);
-            color: var(--dark-bg);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        `;
-        
-        // Создаем индикатор прогресса
-        const progress = document.createElement('div');
-        progress.style.cssText = `
-            flex: 1;
-            height: 4px;
-            background: rgba(42, 157, 143, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
-        `;
-        
-        const progressBar = document.createElement('div');
-        progressBar.style.cssText = `
-            height: 100%;
-            background: var(--aquamarine);
-            width: 0%;
-            transition: width 0.1s linear;
-        `;
-        
-        progress.appendChild(progressBar);
-        
-        // Обработчики событий
-        playButton.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-                playButton.innerHTML = '⏸';
-            } else {
-                audio.pause();
-                playButton.innerHTML = '▶';
-            }
-        });
-        
-        audio.addEventListener('timeupdate', () => {
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = percent + '%';
-        });
-        
-        audio.addEventListener('ended', () => {
-            playButton.innerHTML = '▶';
-            progressBar.style.width = '0%';
-        });
-        
-        // Вставляем элементы
-        wrapper.appendChild(playButton);
-        wrapper.appendChild(progress);
-        
-        // Заменяем стандартный плеер
-        audio.style.display = 'none';
-        audio.parentNode.insertBefore(wrapper, audio);
-        audio.parentNode.removeChild(audio);
-    });
-}
-
-// Раскомментируй следующую строку, если хочешь использовать кастомные плееры
-document.addEventListener('DOMContentLoaded', initCustomAudioControls);
