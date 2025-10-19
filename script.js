@@ -91,14 +91,6 @@ function initAudioPlayers() {
     });
 }
 
-// Конфигурация для Калининграда
-const KALININGRAD_CONFIG = {
-    lat: 54.7104,
-    lon: 20.4522,
-    city: "Калининград",
-    timezone: "Europe/Kaliningrad"
-};
-
 // Функции для времени и погоды Калининграда
 function updateTime() {
     const now = new Date();
@@ -134,14 +126,12 @@ function updateTime() {
 // Функция для получения погоды с OpenWeatherMap API
 async function updateWeather() {
     const btn = document.querySelector('.weather-btn');
-    const apiKey = 'your_api_key_here'; // Замените на ваш API ключ
     
-    // Для демо используем бесплатный API без ключа (ограничения)
     try {
         btn.classList.add('updating');
-        btn.textContent = '🔄 Загрузка...';
+        btn.innerHTML = '<span class="btn-icon">🔄</span> Загрузка...';
         
-        // Используем бесплатный API погоды (можно заменить на OpenWeatherMap с ключом)
+        // Используем бесплатный API погоды
         const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=54.71&longitude=20.51&current_weather=true&timezone=Europe%2FMoscow`);
         
         if (!response.ok) {
@@ -162,7 +152,7 @@ async function updateWeather() {
         showNotification('Используются демо-данные');
     } finally {
         btn.classList.remove('updating');
-        btn.textContent = '🔄 Обновить погоду';
+        btn.innerHTML = '<span class="btn-icon">🔄</span> Обновить погоду';
     }
 }
 
@@ -173,7 +163,6 @@ function updateWeatherUI(weatherData) {
     const feels = document.getElementById('feels-like');
     const humidity = document.getElementById('humidity');
     const wind = document.getElementById('wind-speed');
-    const icon = document.getElementById('weather-icon');
     
     const temperature = Math.round(weatherData.temperature);
     const windSpeed = Math.round(weatherData.windspeed);
@@ -183,9 +172,8 @@ function updateWeatherUI(weatherData) {
     
     if (temp) temp.textContent = `${temperature}°C`;
     if (condition) condition.textContent = weatherInfo.description;
-    if (feels) feels.textContent = `Ощущается как ${temperature}°C`;
+    if (feels) feels.textContent = `${temperature}°C`;
     if (wind) wind.textContent = `${windSpeed} м/с`;
-    if (icon) icon.textContent = weatherInfo.icon;
     
     // Влажность не в этом API, используем примерное значение
     if (humidity) humidity.textContent = `${Math.floor(Math.random() * 30) + 60}%`;
@@ -267,49 +255,12 @@ function updateWeatherWithDemoData() {
     const feels = document.getElementById('feels-like');
     const humidity = document.getElementById('humidity');
     const wind = document.getElementById('wind-speed');
-    const icon = document.getElementById('weather-icon');
     
     if (temp) temp.textContent = `${randomTemp}°C`;
     if (condition) condition.textContent = randomCondition.text;
-    if (feels) feels.textContent = `Ощущается как ${randomTemp}°C`;
+    if (feels) feels.textContent = `${randomTemp}°C`;
     if (humidity) humidity.textContent = `${randomHumidity}%`;
     if (wind) wind.textContent = `${randomWind} м/с`;
-    if (icon) icon.textContent = randomCondition.icon;
-}
-
-// Функция для уведомлений
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--aquamarine);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        z-index: 1000;
-        font-size: 0.9rem;
-        box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-    `;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
 }
 
 // Инициализация времени и погоды для Калининграда
@@ -320,36 +271,6 @@ function initCityTab() {
     // Загружаем погоду при открытии вкладки
     setTimeout(updateWeather, 500);
 }
-
-// Обновляем функцию showTab для инициализации вкладки города
-function showTab(tabName) {
-    // Скрываем все табы
-    document.getElementById('code-tab').style.display = 'none';
-    document.getElementById('music-tab').style.display = 'none';
-    document.getElementById('city-tab').style.display = 'none';
-    
-    // Убираем активный класс у всех кнопок
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Показываем нужный таб и активируем кнопку
-    const targetTab = document.getElementById(tabName + '-tab');
-    if (targetTab) {
-        targetTab.style.display = 'grid';
-        
-        // Если это вкладка города, инициализируем её
-        if (tabName === 'city') {
-            setTimeout(initCityTab, 100);
-        }
-    }
-    
-    // Активируем кнопку
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-}
-
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
