@@ -1,3 +1,68 @@
+// Аудио контекст для гитары
+let audioContext;
+let guitarSounds = {};
+
+// Инициализация звуков гитары
+function initGuitarSounds() {
+    try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Создаем звуки для каждой струны (синусоидальные волны)
+        const frequencies = {
+            'E2': 82.41,
+            'A2': 110.00,
+            'D3': 146.83,
+            'G3': 196.00,
+            'B3': 246.94,
+            'E4': 329.63
+        };
+
+        Object.keys(frequencies).forEach(note => {
+            guitarSounds[note] = frequencies[note];
+        });
+        
+        console.log('Гитара настроена и готова к игре!');
+    } catch (e) {
+        console.log('Аудио не поддерживается в этом браузере');
+    }
+}
+
+// Воспроизведение звука гитары
+function playGuitarSound(frequency) {
+    try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency;
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (e) {
+        console.log('Ошибка воспроизведения звука:', e);
+    }
+}
+
+// Функции для YouTube плейлиста Sokoninaru
+function playSokoninaruTrack(trackNumber) {
+    const youtubeLinks = {
+        1: 'https://www.youtube.com/watch?v=0B8_dgTXYlc',
+        2: 'https://www.youtube.com/watch?v=SQFGm3KDIMk', 
+        3: 'https://www.youtube.com/watch?v=MFIVm9ve-Bs'
+    };
+    
+    const url = youtubeLinks[trackNumber];
+    if (url) {
+        window.open(url, '_blank');
+    }
+}
+
 // Анимация появления элементов при скролле
 function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -16,7 +81,7 @@ function initScrollAnimations() {
     });
 }
 
-// Функции для гитары (ИСПРАВЛЕННЫЕ)
+// Функции для гитары (ИСПРАВЛЕННЫЕ С ЗВУКОМ)
 function playNote(stringElement) {
     // Убираем активный класс у всех струн
     document.querySelectorAll('.string').forEach(str => {
@@ -29,12 +94,22 @@ function playNote(stringElement) {
     // Создаем звуковую волну (визуальный эффект)
     createSoundWave(stringElement);
     
+    // Воспроизводим звук гитары
+    const note = stringElement.dataset.note;
+    if (audioContext && guitarSounds[note]) {
+        // Активируем аудиоконтекст при первом взаимодействии
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+        playGuitarSound(guitarSounds[note]);
+    }
+    
     // Убираем активный класс через время
     setTimeout(() => {
         stringElement.classList.remove('active');
     }, 300);
     
-    console.log(`Playing note: ${stringElement.dataset.note}`);
+    console.log(`Playing note: ${note}`);
 }
 
 function playChord(chord) {
@@ -48,12 +123,24 @@ function playChord(chord) {
         createSoundWave(string);
     });
     
+    // Воспроизводим арпеджио аккорда
+    if (audioContext) {
+        const chordNotes = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'];
+        chordNotes.forEach((note, index) => {
+            setTimeout(() => {
+                if (guitarSounds[note]) {
+                    playGuitarSound(guitarSounds[note]);
+                }
+            }, index * 100);
+        });
+    }
+    
     setTimeout(() => {
         strings.forEach(string => {
             string.classList.remove('active');
         });
         button.style.transform = '';
-    }, 500);
+    }, 600);
     
     console.log(`Playing chord: ${chord}`);
 }
@@ -141,6 +228,11 @@ function initGuitarEffects() {
     
     if (guitar && strings.length > 0) {
         guitar.addEventListener('mouseenter', () => {
+            // Активируем аудиоконтекст при первом взаимодействии
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
             // Случайно играем несколько нот при наведении на гитару
             for (let i = 0; i < 2; i++) {
                 setTimeout(() => {
@@ -152,27 +244,35 @@ function initGuitarEffects() {
     }
 }
 
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-    initScrollAnimations();
-    initGuitarEffects();
-    
-    // Добавляем анимацию для карточек портфолио
-    document.querySelectorAll('.work-card').forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-    });
-    
-    // Добавляем обработчики для табов (на случай если JS не сработает через onclick)
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabName = this.getAttribute('onclick').match(/showTab\('(\w+)'\)/)[1];
-            showTab(tabName);
+// Параллакс эффект для герой-секции
+function initParallax() {
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.code-side, .music-side');
+        
+        parallaxElements.forEach(element => {
+            const speed = 0.3;
+            element.style.transform = `translateY(${scrolled * speed}px)`;
         });
     });
-    
-    // Инициализируем первую вкладку
-    showTab('code');
-});
+}
+
+// Инициализация аудио плееров
+function initAudioPlayers() {
+    const audioPlayers = document.querySelectorAll('audio');
+    audioPlayers.forEach(audio => {
+        audio.controls = true;
+        audio.preload = 'metadata';
+        
+        // Добавляем обработчик для безопасного воспроизведения
+        audio.addEventListener('play', function() {
+            // Активируем аудиоконтекст при первом взаимодействии
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        });
+    });
+}
 
 // Дополнительные эффекты для улучшения UX
 function enhanceUserExperience() {
@@ -190,5 +290,76 @@ function enhanceUserExperience() {
     });
 }
 
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initScrollAnimations();
+    initGuitarEffects();
+    initGuitarSounds();
+    initParallax();
+    initAudioPlayers();
+    
+    // Добавляем анимацию для карточек портфолио
+    document.querySelectorAll('.work-card').forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Добавляем обработчики для табов (на случай если JS не сработает через onclick)
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const onclickAttr = this.getAttribute('onclick');
+            if (onclickAttr) {
+                const tabName = onclickAttr.match(/showTab\('(\w+)'\)/)[1];
+                showTab(tabName);
+            }
+        });
+    });
+    
+    // Инициализируем первую вкладку
+    showTab('code');
+    
+    // Добавляем обработчики для кнопок воспроизведения Sokoninaru
+    document.querySelectorAll('.play-sokoninaru').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const trackNumber = parseInt(this.dataset.track);
+            playSokoninaruTrack(trackNumber);
+        });
+    });
+});
+
 // Запускаем улучшения после полной загрузки страницы
 window.addEventListener('load', enhanceUserExperience);
+
+// Обработчик для активации аудио контекста при любом клике (требование браузеров)
+document.addEventListener('click', function() {
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+}, { once: true });
+
+// Дополнительные анимации для интерактивных элементов
+function initInteractiveAnimations() {
+    // Анимация при наведении на кнопки
+    document.querySelectorAll('.btn, .chord-btn, .social-link').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Анимация карточек при наведении
+    document.querySelectorAll('.work-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+}
+
+// Инициализация интерактивных анимаций после загрузки
+window.addEventListener('load', initInteractiveAnimations);
