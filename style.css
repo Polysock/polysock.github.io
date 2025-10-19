@@ -399,53 +399,63 @@ h1 {
         rgba(109, 74, 255, 0.15));
 }
 
-/* Стили для кастомных аудио-плееров */
-.custom-audio-player {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
+/* УНИВЕРСАЛЬНЫЕ СТИЛИ ДЛЯ АУДИО-ПЛЕЕРОВ */
+.audio-player {
+    margin-top: 15px;
+}
+
+.audio-player audio,
+.track-player {
+    width: 100%;
+    border-radius: 8px;
+    background: var(--dark-card);
+}
+
+/* Стили для WebKit браузеров (Chrome, Safari, Edge) */
+.audio-player audio::-webkit-media-controls-panel,
+.track-player::-webkit-media-controls-panel {
     background: var(--dark-card);
     border-radius: 8px;
-    border: 1px solid rgba(42, 157, 143, 0.2);
-    margin-top: 10px;
-    width: 100%;
 }
 
-.custom-audio-player button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: var(--aquamarine);
-    color: var(--dark-bg);
+.audio-player audio::-webkit-media-controls-play-button,
+.track-player::-webkit-media-controls-play-button {
+    background-color: var(--aquamarine);
     border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
 }
 
-.custom-audio-player button:hover {
-    background: var(--cyan);
-    transform: scale(1.05);
+.audio-player audio::-webkit-media-controls-current-time-display,
+.audio-player audio::-webkit-media-controls-time-remaining-display,
+.track-player::-webkit-media-controls-current-time-display,
+.track-player::-webkit-media-controls-time-remaining-display {
+    color: var(--dark-text);
 }
 
-.custom-audio-player .progress {
-    flex: 1;
-    height: 6px;
-    background: rgba(42, 157, 143, 0.2);
-    border-radius: 3px;
-    overflow: hidden;
+.audio-player audio::-webkit-media-controls-timeline,
+.track-player::-webkit-media-controls-timeline {
+    background-color: rgba(42, 157, 143, 0.2);
+    border-radius: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.custom-audio-player .progress-bar {
-    height: 100%;
-    background: var(--aquamarine);
-    width: 0%;
-    transition: width 0.1s linear;
+.audio-player audio::-webkit-media-controls-volume-slider,
+.track-player::-webkit-media-controls-volume-slider {
+    background-color: rgba(42, 157, 143, 0.2);
+    border-radius: 2px;
+}
+
+.audio-player audio::-webkit-media-controls-mute-button,
+.track-player::-webkit-media-controls-mute-button {
+    background-color: rgba(42, 157, 143, 0.3);
+    border-radius: 50%;
+}
+
+/* Стили для Firefox */
+.audio-player audio,
+.track-player {
+    background: var(--dark-card);
+    height: 40px;
 }
 
 /* Стили для плейлиста */
@@ -515,32 +525,28 @@ h1 {
         flex: 1;
         min-width: 200px;
     }
+    
+    .track-player {
+        flex: 2;
+        min-width: 250px;
+    }
 }
 
-/* Адаптивность для кастомных плееров */
+/* Адаптивность для аудио-плееров */
 @media (max-width: 768px) {
-    .custom-audio-player {
-        padding: 10px;
-        gap: 10px;
-    }
-
-    .custom-audio-player button {
-        width: 36px;
-        height: 36px;
-    }
-
     .playlist-item {
         flex-direction: column;
         align-items: stretch;
         gap: 10px;
     }
 
-    .custom-audio-player {
+    .track-header {
         width: 100%;
     }
     
-    .track-header {
-        width: 100%;
+    .audio-player audio,
+    .track-player {
+        height: 45px;
     }
 }
 
