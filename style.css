@@ -38,12 +38,6 @@ body {
     }
 }
 
-@keyframes stringVibrate {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-1px); }
-    75% { transform: translateX(1px); }
-}
-
 /* Основные стили */
 .container {
     max-width: 1200px;
@@ -291,10 +285,9 @@ h1 {
 .work-image, .music-image, .city-image {
     height: 180px;
     position: relative;
-    background: linear-gradient(45deg, 
-        rgba(42, 157, 143, 0.1), 
-        rgba(72, 202, 228, 0.05), 
-        rgba(109, 74, 255, 0.08));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .work-content {
@@ -353,168 +346,6 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* Гитара */
-.guitar-section {
-    padding: 80px 20px;
-    background: var(--dark-bg);
-    text-align: center;
-    border-top: 1px solid var(--dark-border);
-}
-
-.guitar-section h2 {
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    background: linear-gradient(45deg, var(--aquamarine), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 600;
-}
-
-.guitar-section p {
-    color: var(--dark-text-secondary);
-    margin-bottom: 40px;
-    font-size: 1rem;
-}
-
-.guitar {
-    margin: 40px auto;
-    max-width: 500px;
-}
-
-.guitar-body {
-    background: linear-gradient(45deg, #1a1a1a, #252525);
-    border-radius: 16px;
-    padding: 30px 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    position: relative;
-    border: 1px solid var(--dark-border);
-}
-
-.strings {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.string {
-    position: relative;
-    cursor: pointer;
-    padding: 8px 0;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.string:hover {
-    background: rgba(42, 157, 143, 0.05);
-}
-
-.string-line {
-    height: 2px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(42, 157, 143, 0.6), 
-        transparent);
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.string.active .string-line {
-    background: linear-gradient(90deg, 
-        transparent, 
-        var(--aquamarine), 
-        transparent);
-    animation: stringVibrate 0.3s ease;
-}
-
-.string span {
-    position: absolute;
-    right: -35px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--purple);
-    color: white;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.8rem;
-}
-
-.chord-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-
-.chord-btn {
-    padding: 10px 20px;
-    border: 1px solid rgba(109, 74, 255, 0.3);
-    background: rgba(109, 74, 255, 0.1);
-    color: var(--purple);
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.chord-btn:hover {
-    background: rgba(109, 74, 255, 0.15);
-    transform: translateY(-2px);
-    border-color: rgba(109, 74, 255, 0.5);
-    box-shadow: 0 4px 15px rgba(109, 74, 255, 0.2);
-}
-
-/* Стили для плейлиста и аудио-плееров */
-.playlist {
-    margin-top: 15px;
-    border: 1px solid rgba(42, 157, 143, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.playlist-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
-    transition: background-color 0.3s ease;
-    gap: 12px;
-}
-
-.playlist-item:last-child {
-    border-bottom: none;
-}
-
-.playlist-item:hover {
-    background: rgba(42, 157, 143, 0.05);
-}
-
-.track-number {
-    width: 25px;
-    color: var(--aquamarine);
-    font-weight: 500;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-}
-
-.track-title {
-    flex: 1;
-    color: var(--dark-text);
-    font-size: 0.9rem;
-    min-width: 120px;
-}
-
-.track-player {
-    flex: 2;
-    min-width: 200px;
-    height: 40px;
-}
 /* Стили для изображений */
 .avatar img {
     width: 100%;
@@ -568,61 +399,148 @@ h1 {
         rgba(109, 74, 255, 0.15));
 }
 
-/* Кастомные стили для аудио-плееров */
-.track-player::-webkit-media-controls-panel {
+/* Стили для кастомных аудио-плееров */
+.custom-audio-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
     background: var(--dark-card);
-    border-radius: 6px;
-}
-
-.track-player::-webkit-media-controls-play-button {
-    background-color: var(--aquamarine);
-    border-radius: 50%;
-}
-
-.track-player::-webkit-media-controls-current-time-display,
-.track-player::-webkit-media-controls-time-remaining-display {
-    color: var(--dark-text);
-}
-
-.audio-player audio {
-    width: 100%;
     border-radius: 8px;
-    background: var(--dark-card);
+    border: 1px solid rgba(42, 157, 143, 0.2);
     margin-top: 10px;
+    width: 100%;
 }
 
-.audio-player audio::-webkit-media-controls-panel {
-    background: var(--dark-card);
+.custom-audio-player button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--aquamarine);
+    color: var(--dark-bg);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
-/* Прогресс-бар для аудио */
-.track-player::-webkit-media-controls-timeline {
-    background-color: rgba(42, 157, 143, 0.2);
-    border-radius: 2px;
-    margin-left: 10px;
-    margin-right: 10px;
+.custom-audio-player button:hover {
+    background: var(--cyan);
+    transform: scale(1.05);
 }
 
-.track-player::-webkit-media-controls-volume-slider {
-    background-color: rgba(42, 157, 143, 0.2);
-    border-radius: 2px;
+.custom-audio-player .progress {
+    flex: 1;
+    height: 6px;
+    background: rgba(42, 157, 143, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
 }
 
-/* Адаптивность для плейлиста */
+.custom-audio-player .progress-bar {
+    height: 100%;
+    background: var(--aquamarine);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* Стили для плейлиста */
+.playlist {
+    margin-top: 15px;
+    border: 1px solid rgba(42, 157, 143, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.playlist-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 15px;
+    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
+    transition: background-color 0.3s ease;
+    gap: 12px;
+}
+
+.playlist-item:last-child {
+    border-bottom: none;
+}
+
+.playlist-item:hover {
+    background: rgba(42, 157, 143, 0.05);
+}
+
+.track-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.track-number {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(42, 157, 143, 0.1);
+    color: var(--aquamarine);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border: 1px solid rgba(42, 157, 143, 0.3);
+    flex-shrink: 0;
+}
+
+.track-title {
+    flex: 1;
+    color: var(--dark-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Для десктопов - горизонтальное расположение */
+@media (min-width: 769px) {
+    .playlist-item {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .track-header {
+        flex: 1;
+        min-width: 200px;
+    }
+}
+
+/* Адаптивность для кастомных плееров */
 @media (max-width: 768px) {
+    .custom-audio-player {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .custom-audio-player button {
+        width: 36px;
+        height: 36px;
+    }
+
     .playlist-item {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        align-items: stretch;
+        gap: 10px;
     }
-    
-    .track-player {
+
+    .custom-audio-player {
         width: 100%;
-        min-width: auto;
     }
     
-    .track-title {
-        min-width: auto;
+    .track-header {
+        width: 100%;
     }
 }
 
@@ -736,19 +654,6 @@ h1 {
     .tab {
         text-align: center;
     }
-    
-    .guitar {
-        margin: 30px auto;
-    }
-    
-    .chord-buttons {
-        gap: 8px;
-    }
-    
-    .chord-btn {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -768,76 +673,5 @@ h1 {
     
     .works-grid {
         grid-template-columns: 1fr;
-    }
-    
-    .guitar-body {
-        padding: 20px 15px;
-    }
-}
-
-/* Улучшенные стили для плейлиста */
-.track-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.playlist-item {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 15px;
-    border-bottom: 1px solid rgba(42, 157, 143, 0.1);
-    transition: background-color 0.3s ease;
-    gap: 12px;
-}
-
-.playlist-item:last-child {
-    border-bottom: none;
-}
-
-.playlist-item:hover {
-    background: rgba(42, 157, 143, 0.05);
-}
-
-.track-number {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(42, 157, 143, 0.1);
-    color: var(--aquamarine);
-    border-radius: 50%;
-    font-weight: 600;
-    font-size: 0.8rem;
-    border: 1px solid rgba(42, 157, 143, 0.3);
-    flex-shrink: 0;
-}
-
-.track-title {
-    flex: 1;
-    color: var(--dark-text);
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.4;
-}
-
-/* Для десктопов - горизонтальное расположение */
-@media (min-width: 769px) {
-    .playlist-item {
-        flex-direction: row;
-        align-items: center;
-    }
-    
-    .track-header {
-        flex: 1;
-        min-width: 200px;
-    }
-    
-    .track-player {
-        flex: 2;
-        min-width: 250px;
     }
 }
