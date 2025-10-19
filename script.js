@@ -91,10 +91,10 @@ function initAudioPlayers() {
     });
 }
 
+// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initAudioPlayers();
-    initHeroButtons(); // Добавляем эту строку
     
     // Добавляем анимацию для карточек портфолио
     document.querySelectorAll('.work-card').forEach((card, index) => {
@@ -133,36 +133,3 @@ function enhanceUserExperience() {
 
 // Запускаем улучшения после полной загрузки страницы
 window.addEventListener('load', enhanceUserExperience);
-
-// Обработка кликов по кнопкам в герое-секции
-function initHeroButtons() {
-    const heroButtons = document.querySelectorAll('.hero .btn');
-    
-    heroButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (this.getAttribute('href') === '#portfolio') {
-                e.preventDefault();
-                
-                // Плавный скролл к портфолио
-                const portfolioSection = document.getElementById('portfolio');
-                if (portfolioSection) {
-                    portfolioSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Если это кнопка "Мои записи", переключаем на музыку
-                    if (this.textContent.includes('записи')) {
-                        setTimeout(() => {
-                            showTab('music');
-                        }, 800);
-                    } else if (this.textContent.includes('проекты')) {
-                        setTimeout(() => {
-                            showTab('code');
-                        }, 800);
-                    }
-                }
-            }
-        });
-    });
-}
