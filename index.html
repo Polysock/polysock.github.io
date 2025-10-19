@@ -158,54 +158,55 @@
     </section>
 
     <!-- Интерактивная гитара -->
-    <section class="guitar-section" id="music">
-        <div class="container">
-            <h2>🎸 Виртуальная гитара</h2>
-            <p>Кликни по струнам, чтобы сыграть звук</p>
-            
-            <div class="guitar">
-                <div class="guitar-body">
-                    <div class="strings">
-                        <div class="string" data-note="E4" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>E</span>
-                        </div>
-                        <div class="string" data-note="B3" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>B</span>
-                        </div>
-                        <div class="string" data-note="G3" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>G</span>
-                        </div>
-                        <div class="string" data-note="D3" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>D</span>
-                        </div>
-                        <div class="string" data-note="A2" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>A</span>
-                        </div>
-                        <div class="string" data-note="E2" onclick="playNote(this)">
-                            <div class="string-line"></div>
-                            <span>E</span>
-                        </div>
+<section class="guitar-section" id="music">
+    <div class="container">
+        <h2>🎸 Виртуальная гитара</h2>
+        <p>Кликни по струнам, чтобы сыграть звук</p>
+        
+        <div class="guitar">
+            <div class="guitar-body">
+                <div class="strings">
+                    <div class="string" data-note="E4" onclick="playNote('E4')">
+                        <div class="string-line"></div>
+                        <span>E</span>
+                    </div>
+                    <div class="string" data-note="B3" onclick="playNote('B3')">
+                        <div class="string-line"></div>
+                        <span>B</span>
+                    </div>
+                    <div class="string" data-note="G3" onclick="playNote('G3')">
+                        <div class="string-line"></div>
+                        <span>G</span>
+                    </div>
+                    <div class="string" data-note="D3" onclick="playNote('D3')">
+                        <div class="string-line"></div>
+                        <span>D</span>
+                    </div>
+                    <div class="string" data-note="A2" onclick="playNote('A2')">
+                        <div class="string-line"></div>
+                        <span>A</span>
+                    </div>
+                    <div class="string" data-note="E2" onclick="playNote('E2')">
+                        <div class="string-line"></div>
+                        <span>E</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="chords">
-                <h3>Аккорды прогрессивного рока:</h3>
-                <div class="chord-buttons">
-                    <button class="chord-btn" onclick="playChord('C')">Cmaj7</button>
-                    <button class="chord-btn" onclick="playChord('G')">G/B</button>
-                    <button class="chord-btn" onclick="playChord('D')">Dsus4</button>
-                    <button class="chord-btn" onclick="playChord('Am')">Am11</button>
-                </div>
+        </div>
+        
+        <div class="chords">
+            <h3>Аккорды прогрессивного рока:</h3>
+            <div class="chord-buttons">
+                <button class="chord-btn" onclick="playChord('Cmaj7')">Cmaj7</button>
+                <button class="chord-btn" onclick="playChord('G/B')">G/B</button>
+                <button class="chord-btn" onclick="playChord('Dsus4')">Dsus4</button>
+                <button class="chord-btn" onclick="playChord('Em9')">Em9</button>
+                <button class="chord-btn" onclick="playChord('Am11')">Am11</button>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
+    
     <!-- Футер -->
     <footer class="footer">
         <div class="container">
