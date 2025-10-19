@@ -156,28 +156,91 @@
                 </div>
             </div>
             
-            <!-- Вкладка города -->
-            <div class="works-grid" id="city-tab" style="display: none;">
-                <div class="work-card city-card">
-                    <div class="city-image" style="background-image: url('images/city.jpg')"></div>
-                    <div class="work-content">
-                        <h3>Мой город</h3>
-                        <p>Здесь будет раздел о твоем городе. Можешь добавить фото, описание местных достопримечательностей, интересных мест или музыкальной сцены.</p>
-                        <div class="city-info">
-                            <div class="city-detail">
-                                <span class="detail-label">📍 Место:</span>
-                                <span class="detail-value">Твой город</span>
+           <!-- Вкладка города -->
+<div class="works-grid" id="city-tab" style="display: none;">
+    <div class="work-card city-card">
+        <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1590330590634-4eac7a8686e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="work-content">
+            <h3>Калининград</h3>
+            <p>Город у Балтийского моря, где я живу, создаю музыку и код. Уникальное место с богатой историей и атмосферой.</p>
+            
+            <!-- Блок времени и погоды -->
+            <div class="weather-time-widget">
+                <div class="weather-card">
+                    <div class="weather-header">
+                        <h4>📍 Погода в Калининграде</h4>
+                        <div class="weather-icon" id="weather-icon">🌤️</div>
+                    </div>
+                    <div class="weather-info">
+                        <div class="temperature" id="temperature">--°C</div>
+                        <div class="weather-details">
+                            <span class="weather-condition" id="weather-condition">Загрузка...</span>
+                            <span class="weather-feels" id="feels-like">Ощущается как --°C</span>
+                        </div>
+                        <div class="weather-stats">
+                            <div class="stat">
+                                <span class="stat-label">Влажность:</span>
+                                <span class="stat-value" id="humidity">--%</span>
                             </div>
-                            <div class="city-detail">
-                                <span class="detail-label">🎵 Музыкальная сцена:</span>
-                                <span class="detail-value">Прогрессив-рок сообщество</span>
+                            <div class="stat">
+                                <span class="stat-label">Ветер:</span>
+                                <span class="stat-value" id="wind-speed">-- м/с</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="time-card">
+                    <div class="time-header">
+                        <h4>🕒 Местное время</h4>
+                        <div class="time-icon">⏰</div>
+                    </div>
+                    <div class="time-info">
+                        <div class="current-time" id="current-time">00:00:00</div>
+                        <div class="current-date" id="current-date">1 января 2024</div>
+                        <div class="time-details">
+                            <div class="day-of-week" id="day-of-week">Понедельник</div>
+                            <div class="time-zone">Часовой пояс: GMT+2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="city-info">
+                <div class="city-detail">
+                    <span class="detail-label">🏙️ Город:</span>
+                    <span class="detail-value">Калининград, Россия</span>
+                </div>
+                <div class="city-detail">
+                    <span class="detail-label">📍 Регион:</span>
+                    <span class="detail-value">Калининградская область</span>
+                </div>
+                <div class="city-detail">
+                    <span class="detail-label">🌊 Известен:</span>
+                    <span class="detail-value">Балтийское море, Кафедральный собор, Музей янтаря</span>
+                </div>
+                <div class="city-detail">
+                    <span class="detail-label">🎵 Музыкальная сцена:</span>
+                    <span class="detail-value">Активная рок-сцена, концерты в клубах</span>
+                </div>
+                <div class="city-detail">
+                    <span class="detail-label">💡 Интересный факт:</span>
+                    <span class="detail-value">Единственный российский город с европейской архитектурой и Балтийским побережьем</span>
+                </div>
+            </div>
+            
+            <!-- Кнопки для управления -->
+            <div class="weather-controls" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn weather-btn" onclick="updateWeather()">
+                    🔄 Обновить погоду
+                </button>
+                <button class="btn weather-btn" onclick="getLocationWeather()">
+                    📍 Моя локация
+                </button>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
     <!-- Футер -->
     <footer class="footer">
