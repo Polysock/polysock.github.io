@@ -156,86 +156,173 @@
                 </div>
             </div>
             
-           <!-- Вкладка города -->
+<!-- Вкладка города -->
 <div class="works-grid" id="city-tab" style="display: none;">
     <div class="work-card city-card">
-        <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1590330590634-4eac7a8686e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="city-image" style="background-image: url('https://images.unsplash.com/photo-1590330590634-4eac7a8686e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')">
+            <div class="city-overlay">
+                <h2>Калининград</h2>
+                <p>Город у Балтийского моря</p>
+            </div>
+        </div>
+        
         <div class="work-content">
-            <h3>Калининград</h3>
-            <p>Город у Балтийского моря, где я живу, создаю музыку и код. Уникальное место с богатой историей и атмосферой.</p>
-            
-            <!-- Блок времени и погоды -->
-            <div class="weather-time-widget">
-                <div class="weather-card">
-                    <div class="weather-header">
-                        <h4>📍 Погода в Калининграде</h4>
-                        <div class="weather-icon" id="weather-icon">🌤️</div>
+            <!-- Основная информация карточками -->
+            <div class="city-grid">
+                <!-- Карточка основной информации -->
+                <div class="info-card">
+                    <div class="info-icon">🏙️</div>
+                    <div class="info-content">
+                        <h4>Основная информация</h4>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-label">Страна:</span>
+                                <span class="info-value">Россия</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Регион:</span>
+                                <span class="info-value">Калининградская область</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Население:</span>
+                                <span class="info-value">≈ 500,000 человек</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Основан:</span>
+                                <span class="info-value">1255 год</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="weather-info">
-                        <div class="temperature" id="temperature">--°C</div>
+                </div>
+
+                <!-- Карточка погоды -->
+                <div class="info-card weather-widget">
+                    <div class="info-icon">🌤️</div>
+                    <div class="info-content">
+                        <h4>Погода сейчас</h4>
+                        <div class="weather-main">
+                            <div class="weather-temp" id="temperature">--°C</div>
+                            <div class="weather-desc" id="weather-condition">Загрузка...</div>
+                        </div>
                         <div class="weather-details">
-                            <span class="weather-condition" id="weather-condition">Загрузка...</span>
-                            <span class="weather-feels" id="feels-like">Ощущается как --°C</span>
-                        </div>
-                        <div class="weather-stats">
-                            <div class="stat">
-                                <span class="stat-label">Влажность:</span>
-                                <span class="stat-value" id="humidity">--%</span>
+                            <div class="weather-item">
+                                <span class="weather-label">Ощущается:</span>
+                                <span class="weather-value" id="feels-like">--°C</span>
                             </div>
-                            <div class="stat">
-                                <span class="stat-label">Ветер:</span>
-                                <span class="stat-value" id="wind-speed">-- м/с</span>
+                            <div class="weather-item">
+                                <span class="weather-label">Влажность:</span>
+                                <span class="weather-value" id="humidity">--%</span>
+                            </div>
+                            <div class="weather-item">
+                                <span class="weather-label">Ветер:</span>
+                                <span class="weather-value" id="wind-speed">-- м/с</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="time-card">
-                    <div class="time-header">
-                        <h4>🕒 Местное время</h4>
-                        <div class="time-icon">⏰</div>
-                    </div>
-                    <div class="time-info">
-                        <div class="current-time" id="current-time">00:00:00</div>
-                        <div class="current-date" id="current-date">1 января 2024</div>
+
+                <!-- Карточка времени -->
+                <div class="info-card time-widget">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-content">
+                        <h4>Местное время</h4>
+                        <div class="time-main">
+                            <div class="current-time" id="current-time">00:00:00</div>
+                            <div class="current-date" id="current-date">1 января 2024</div>
+                        </div>
                         <div class="time-details">
-                            <div class="day-of-week" id="day-of-week">Понедельник</div>
-                            <div class="time-zone">Часовой пояс: GMT+2</div>
+                            <div class="time-item">
+                                <span class="time-label">День недели:</span>
+                                <span class="time-value" id="day-of-week">Понедельник</span>
+                            </div>
+                            <div class="time-item">
+                                <span class="time-label">Часовой пояс:</span>
+                                <span class="time-value">GMT+2 (Калининград)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка достопримечательностей -->
+                <div class="info-card places-card">
+                    <div class="info-icon">🏛️</div>
+                    <div class="info-content">
+                        <h4>Достопримечательности</h4>
+                        <div class="places-list">
+                            <div class="place-item">
+                                <span class="place-name">Кафедральный собор</span>
+                                <span class="place-desc">Остров Канта, органный зал</span>
+                            </div>
+                            <div class="place-item">
+                                <span class="place-name">Музей янтаря</span>
+                                <span class="place-desc">Крупнейшая коллекция янтаря</span>
+                            </div>
+                            <div class="place-item">
+                                <span class="place-name">Бранденбургские ворота</span>
+                                <span class="place-desc">Исторические городские ворота</span>
+                            </div>
+                            <div class="place-item">
+                                <span class="place-name">Рыбная деревня</span>
+                                <span class="place-desc">Этнографический комплекс</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка культуры -->
+                <div class="info-card culture-card">
+                    <div class="info-icon">🎵</div>
+                    <div class="info-content">
+                        <h4>Культура и музыка</h4>
+                        <div class="culture-list">
+                            <div class="culture-item">
+                                <span class="culture-label">Музыкальная сцена:</span>
+                                <span class="culture-value">Активная рок- и альтернативная сцена</span>
+                            </div>
+                            <div class="culture-item">
+                                <span class="culture-label">Концертные площадки:</span>
+                                <span class="culture-value">Клуб "Порт", Драмтеатр</span>
+                            </div>
+                            <div class="culture-item">
+                                <span class="culture-label">Фестивали:</span>
+                                <span class="culture-value">Калининград Сити Джаз, Балтийские сезоны</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка интересных фактов -->
+                <div class="info-card facts-card">
+                    <div class="info-icon">💡</div>
+                    <div class="info-content">
+                        <h4>Интересные факты</h4>
+                        <div class="facts-list">
+                            <div class="fact-item">
+                                <span class="fact-text">Единственный российский город с европейской архитектурой</span>
+                            </div>
+                            <div class="fact-item">
+                                <span class="fact-text">Расположен между Польшей и Литвой</span>
+                            </div>
+                            <div class="fact-item">
+                                <span class="fact-text">90% мировых запасов янтаря</span>
+                            </div>
+                            <div class="fact-item">
+                                <span class="fact-text">Бывший Кёнигсберг - родина Канта</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="city-info">
-                <div class="city-detail">
-                    <span class="detail-label">🏙️ Город:</span>
-                    <span class="detail-value">Калининград, Россия</span>
-                </div>
-                <div class="city-detail">
-                    <span class="detail-label">📍 Регион:</span>
-                    <span class="detail-value">Калининградская область</span>
-                </div>
-                <div class="city-detail">
-                    <span class="detail-label">🌊 Известен:</span>
-                    <span class="detail-value">Балтийское море, Кафедральный собор, Музей янтаря</span>
-                </div>
-                <div class="city-detail">
-                    <span class="detail-label">🎵 Музыкальная сцена:</span>
-                    <span class="detail-value">Активная рок-сцена, концерты в клубах</span>
-                </div>
-                <div class="city-detail">
-                    <span class="detail-label">💡 Интересный факт:</span>
-                    <span class="detail-value">Единственный российский город с европейской архитектурой и Балтийским побережьем</span>
-                </div>
-            </div>
-            
-            <!-- Кнопки для управления -->
-            <div class="weather-controls" style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+
+            <!-- Кнопки управления -->
+            <div class="city-controls">
                 <button class="btn weather-btn" onclick="updateWeather()">
-                    🔄 Обновить погоду
+                    <span class="btn-icon">🔄</span>
+                    Обновить погоду
                 </button>
-                <button class="btn weather-btn" onclick="getLocationWeather()">
-                    📍 Моя локация
+                <button class="btn location-btn" onclick="getLocationWeather()">
+                    <span class="btn-icon">📍</span>
+                    Моя локация
                 </button>
             </div>
         </div>
