@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Разработчик & Гитарист</title>
+    <title>Твоё Имя - Разработчик & Гитарист</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,24 +11,28 @@
     <section class="hero">
         <div class="code-side">
             <div class="avatar"></div>
-            <h1>Frontend Developer</h1>
-            <p>Создаю современные и быстрые веб-приложения</p>
+            <h1>Твоё Имя</h1>
+            <p class="subtitle">Frontend Developer</p>
+            <p class="description">Создаю современные и быстрые веб-приложения</p>
             <div class="skills">
                 <span>React</span>
                 <span>TypeScript</span>
                 <span>Node.js</span>
+                <!-- Добавь свои технологии -->
             </div>
             <a href="#portfolio" class="btn">Мои проекты</a>
         </div>
         
         <div class="music-side">
             <div class="avatar"></div>
-            <h1>Гитарист</h1>
-            <p>Играю в разных стилях - от классики до рока</p>
+            <h1>Твоё Имя</h1>
+            <p class="subtitle">Гитарист</p>
+            <p class="description">Играю в разных стилях - от классики до рока</p>
             <div class="skills">
                 <span>Fingerstyle</span>
                 <span>Rock</span>
                 <span>Импровизация</span>
+                <!-- Добавь свои музыкальные стили -->
             </div>
             <a href="#music" class="btn">Мои записи</a>
         </div>
@@ -36,33 +40,117 @@
 
     <!-- Портфолио с вкладками -->
     <section class="portfolio" id="portfolio">
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('code')">💻 Проекты</div>
-            <div class="tab" onclick="showTab('music')">🎸 Музыка</div>
-        </div>
-        
-        <div class="works-grid" id="code-tab">
-            <!-- Добавь свои проекты здесь -->
-            <div class="work-card">
-                <div class="work-image"></div>
-                <div class="work-content">
-                    <h3>Мой первый сайт</h3>
-                    <p>HTML, CSS, JavaScript</p>
+        <div class="container">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('code')">💻 Проекты</div>
+                <div class="tab" onclick="showTab('music')">🎸 Музыка</div>
+            </div>
+            
+            <div class="works-grid" id="code-tab">
+                <!-- Твои проекты будут здесь -->
+                <div class="work-card">
+                    <div class="work-image"></div>
+                    <div class="work-content">
+                        <h3>Пример проекта</h3>
+                        <p>Описание твоего крутого проекта</p>
+                        <div class="tech-stack">
+                            <span>React</span>
+                            <span>Node.js</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="works-grid" id="music-tab" style="display: none;">
-            <!-- Добавь свои музыкальные работы -->
-            <div class="work-card">
-                <div class="music-image"></div>
-                <div class="work-content">
-                    <h3>Моя первая запись</h3>
-                    <p>Акустическая гитара</p>
+            
+            <div class="works-grid" id="music-tab" style="display: none;">
+                <!-- Твои музыкальные работы -->
+                <div class="work-card">
+                    <div class="music-image"></div>
+                    <div class="work-content">
+                        <h3>Моя запись</h3>
+                        <p>Описание музыкальной работы</p>
+                        <div class="music-type">
+                            <span>Акустика</span>
+                            <span>Кавер</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Интерактивная гитара -->
+    <section class="guitar-section" id="music">
+        <div class="container">
+            <h2>🎸 Виртуальная гитара</h2>
+            <p>Кликни по струнам, чтобы сыграть звук</p>
+            
+            <div class="guitar">
+                <div class="guitar-body">
+                    <div class="strings">
+                        <div class="string" data-note="E4" onclick="playNote('E4')">
+                            <div class="string-line"></div>
+                            <span>E</span>
+                        </div>
+                        <div class="string" data-note="B3" onclick="playNote('B3')">
+                            <div class="string-line"></div>
+                            <span>B</span>
+                        </div>
+                        <div class="string" data-note="G3" onclick="playNote('G3')">
+                            <div class="string-line"></div>
+                            <span>G</span>
+                        </div>
+                        <div class="string" data-note="D3" onclick="playNote('D3')">
+                            <div class="string-line"></div>
+                            <span>D</span>
+                        </div>
+                        <div class="string" data-note="A2" onclick="playNote('A2')">
+                            <div class="string-line"></div>
+                            <span>A</span>
+                        </div>
+                        <div class="string" data-note="E2" onclick="playNote('E2')">
+                            <div class="string-line"></div>
+                            <span>E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chords">
+                <h3>Популярные аккорды:</h3>
+                <div class="chord-buttons">
+                    <button class="chord-btn" onclick="playChord('C')">C</button>
+                    <button class="chord-btn" onclick="playChord('G')">G</button>
+                    <button class="chord-btn" onclick="playChord('D')">D</button>
+                    <button class="chord-btn" onclick="playChord('Em')">Em</button>
+                    <button class="chord-btn" onclick="playChord('Am')">Am</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🎸💻 Разработчик & Гитарист</h3>
+                    <p>Создаю код и музыку с passion</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">Telegram</a>
+                        <a href="#" class="social-link">YouTube</a>
+                        <a href="#" class="social-link">SoundCloud</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Polysock. Все права защищены... или нет 😄</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
